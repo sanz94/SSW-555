@@ -17,7 +17,7 @@ VALID_VALUES = {"0": ["INDI", "HEAD", "TRLR", "NOTE", "FAM"], "1": ["NAME", "SEX
 
 class Gedcom:
 
-    def __init__(self, file):
+    def __init__(self, file , pretty):
         self.file = file
         self.directory = pathlib.Path(__file__).parent
         self.output = ""
@@ -26,6 +26,12 @@ class Gedcom:
         self.tempdata = ""
         self.ptUsers = PrettyTable()
         self.ptFamily = PrettyTable()
+        if pretty.lower() == "y":
+            self.bool_to_print = True
+        elif pretty.lower() == "n":
+            self.bool_to_print = False
+        else:
+            print("Invalid input for pretty table argument")
 
     def analyze(self):
         """
@@ -34,8 +40,8 @@ class Gedcom:
         if self.file.endswith("ged"):
             read_lines = self.open_file()
             self.parse_file(read_lines)
-            self.calc_data()
-            return self.output, self.userdata, self.familydata
+            error = self.calc_data()
+            return self.output, self.userdata, self.familydata, error
         else:
             return "Can only analyze gedcom files. Enter a file ending with .ged"
 
@@ -127,7 +133,17 @@ class Gedcom:
                                 self.familydata[curr_id][split_words[1]].append(split_words[2])
                                 continue
                             if split_words[0] == "2":
-                                self.userdata[curr_id][self.tempdata + split_words[1]] = split_words[2]
+                                if curr_id in self.userdata:
+                                    self.userdata[curr_id][self.tempdata + split_words[1]] = split_words[2]
+                                    continue
+                                elif split_words[1] == "DATE":
+                                    husband = self.familydata[curr_id]["HUSB"]
+                                    wife = self.familydata[curr_id]["WIFE"]
+                                    self.userdata[husband][self.tempdata + split_words[1]] = split_words[2]
+                                    self.userdata[wife][self.tempdata + split_words[1]] = split_words[2]
+                                else:
+                                    continue
+                            if split_words[1] in ["FAM", "INDI"]:
                                 continue
                             self.userdata[curr_id][split_words[1]] = split_words[2]
                 except KeyError: # if invalid level value, throw eror
@@ -143,11 +159,16 @@ class Gedcom:
         for key in self.userdata:
 
             today = date.today()
+
             try:
                 birthday = self.userdata[key]["BIRTDATE"]
                 born_date = datetime.datetime.strptime(birthday, '%d %b %Y')
             except ValueError:
                 print("Invalid date found")
+                sys.exit()
+            except KeyError:
+                print(self.userdata[key])
+                print("Invalid data for {}".format(self.userdata[key]))
                 sys.exit()
             try:
                 death_date = self.userdata[key]["DEATDATE"]
@@ -163,8 +184,8 @@ class Gedcom:
                 age = death_date.year - born_date.year
             self.userdata[key]["AGE"] = age
 
-        self.prettyTablefunc()
-
+        error = self.prettyTablefunc()
+        return error
 
     def prettyTablefunc(self):
 
@@ -191,7 +212,8 @@ class Gedcom:
                 spouse = "NA"
             self.ptUsers.add_row([key, name, gender, birthdate, age, alive, death, child, spouse])
 
-        print(self.ptUsers)
+        if self.bool_to_print is True:
+            print(self.ptUsers)
 
         self.ptFamily.field_names = ["ID", "MARRIAGE DATE", "DIVORCE DATE", "HUSBAND ID", "HUSBAND NAME", "WIFE ID", "WIFE NAME", "CHILDREN"]
 
@@ -200,41 +222,81 @@ class Gedcom:
             value = self.familydata[key]
             husband_id = value["HUSB"]
             husband_name = self.userdata[husband_id]["NAME"]
-            marriage = self.userdata[husband_id]["MARRDATE"]
+            try:
+                marriage = self.userdata[husband_id]["MARRDATE"]
+            except KeyError:
+                return "No Marriage date found"
             wife_id= value["WIFE"]
             wife_name = self.userdata[wife_id]["NAME"]
             try:
                 divorce = self.userdata[husband_id]["DIVDATE"]
             except KeyError:
                 divorce = "NA"
+            if (divorce != "NA") and (datetime.datetime.strptime(divorce, '%d %b %Y')> datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')):
+                return "Divorce after death"
             try:
                 child = value["CHIL"]
             except KeyError:
                 child = "NA"
             self.ptFamily.add_row([key, marriage, divorce, husband_id, husband_name, wife_id, wife_name, child])
 
-        print(self.ptFamily)
+        if self.bool_to_print is True:
+            print(self.ptFamily)
 
-"""class TestCases(unittest.TestCase):
+class TestCases(unittest.TestCase):
 
 
     def setUp(self):
-        x = Gedcom("sampleged.ged")
-        self.op = x.analyze()
+        """
+        Set up objects with filenames
+        """
+        x = Gedcom("proj03testDivorceAfterDeath.ged", "n")
+        self.op, self.userdata, self.familydata, self.error = x.analyze()
 
-    def test_equals(self):
-        self.assertEqual(self.op, "--> 0 NOTE dates after now\n<-- 0|NOTE|Y|dates after now\n--> 1 SOUR Family Echo\n<-- 1|SOUR|N|Family Echo\n--> 2 WWW http://www.familyecho.com  (Links to an external site.)Links to an external site.\n<-- 2|WWW|N|http://www.familyecho.com  (Links to an external site.)Links to an external site.\n--> 0 bi00 INDI\n<-- 0|INDI|Y|bi00\n--> 1 NAME Jimmy /Conners/\n<-- 1|NAME|Y|Jimmy /Conners/\n")
-"""
+        x1 = Gedcom("sangedcom.ged", "N")
+        self.op1, self.userdata1, self.familydata1, self.error1 = x1.analyze()
+
+    def test_equal(self):
+        """
+        Test if equals
+        """
+        self.assertEqual(self.error, "Divorce after death")
+
+    def test_true(self):
+        """
+        Test if True
+        """
+        self.assertTrue(self.error ==  "Divorce after death")
+
+    def test_False(self):
+        """
+        Test if false
+        """
+        self.assertFalse(self.error ==  "Filler")
+
+    def test_notEqual(self):
+        """
+        Test if not equal
+        """
+        self.assertNotEqual(self.error, "Filler")
+
+    def test_is(self):
+        """
+        Test if it is None
+        """
+        self.assertIsNone(self.error1, None)
+
 def main():
 
     file = input("Enter file name: \n")
-    g = Gedcom(file)
-    op, userdata, familydata = g.analyze()
+    pretty = input("Do you want pretty table? y/n \n")
+    g = Gedcom(file, pretty)
+    op, userdata, familydata, error = g.analyze()
 
     #print(op)
     #print(userdata)
     #print(familydata)
 
 if __name__ == '__main__':
-    #unittest.main(exit=False, verbosity=False)
+    unittest.main(exit=False, verbosity=2)
     main()
