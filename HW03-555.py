@@ -37,6 +37,7 @@ class Gedcom:
         """
         Function to check if file is valid
         """
+
         if self.file.endswith("ged"):
             read_lines = self.open_file()
             self.parse_file(read_lines)
@@ -185,6 +186,8 @@ class Gedcom:
             self.userdata[key]["AGE"] = age
 
         error = self.prettyTablefunc()
+        if error is None:
+            error = "No errors found"
         return error
 
     def prettyTablefunc(self):
@@ -233,7 +236,10 @@ class Gedcom:
             except KeyError:
                 divorce = "NA"
             if (divorce != "NA") and (datetime.datetime.strptime(divorce, '%d %b %Y')> datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')):
-                return "Divorce after death"
+                raise DivorceAfterDeathError("{} divorces after death".format(husband_name))
+            if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
+                if self.userdata[husband_id]["FAMC"] == self.userdata[wife_id]["FAMC"]:
+                    raise SiblingMarriageError("{} and {} are siblings".format(husband_name, wife_name))
             try:
                 child = value["CHIL"]
             except KeyError:
@@ -243,6 +249,14 @@ class Gedcom:
         if self.bool_to_print is True:
             print(self.ptFamily)
 
+class DivorceAfterDeathError(Exception):
+   """Raised when husb/wife divorce after their death"""
+   pass
+
+class SiblingMarriageError(Exception):
+   """Raised when husb/wife divorce after their death"""
+   pass
+
 class TestCases(unittest.TestCase):
 
 
@@ -250,41 +264,21 @@ class TestCases(unittest.TestCase):
         """
         Set up objects with filenames
         """
-        x = Gedcom("proj03testDivorceAfterDeath.ged", "n")
-        self.op, self.userdata, self.familydata, self.error = x.analyze()
+        self.x = Gedcom("proj03testDivorceAfterDeath.ged", "n")
+        self.x1 = Gedcom("proj04testsiblingsmarriage.ged", "n")
 
-        x1 = Gedcom("sangedcom.ged", "N")
-        self.op1, self.userdata1, self.familydata1, self.error1 = x1.analyze()
+    def test_divorceAfterDeath(self):
+        """
+        Test if hus/wife divorces after death
+        """
+        self.assertRaises(DivorceAfterDeathError, lambda: self.x.analyze())
 
-    def test_equal(self):
+    def test_SiblingMarriage(self):
         """
-        Test if equals
+        Test if siblings marry
         """
-        self.assertEqual(self.error, "Divorce after death")
+        self.assertRaises(SiblingMarriageError, lambda: self.x1.analyze())
 
-    def test_true(self):
-        """
-        Test if True
-        """
-        self.assertTrue(self.error ==  "Divorce after death")
-
-    def test_False(self):
-        """
-        Test if false
-        """
-        self.assertFalse(self.error ==  "Filler")
-
-    def test_notEqual(self):
-        """
-        Test if not equal
-        """
-        self.assertNotEqual(self.error, "Filler")
-
-    def test_is(self):
-        """
-        Test if it is None
-        """
-        self.assertIsNone(self.error1, None)
 
 def main():
 
@@ -292,7 +286,7 @@ def main():
     pretty = input("Do you want pretty table? y/n \n")
     g = Gedcom(file, pretty)
     op, userdata, familydata, error = g.analyze()
-
+    print(error)
     #print(op)
     #print(userdata)
     #print(familydata)
