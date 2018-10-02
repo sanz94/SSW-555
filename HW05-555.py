@@ -1,5 +1,5 @@
 """
-Program by Sanjeev Rajasekaran
+Program by Sanjeev Rajasekaran, Vikas Bhat, Ogadinma Njoku, Xiaopeng Yuang
 Use: Analyze gedcom files, takes a file as input
 """
 
@@ -18,6 +18,7 @@ VALID_VALUES = {"0": ["INDI", "HEAD", "TRLR", "NOTE", "FAM"], "1": ["NAME", "SEX
 class Gedcom:
 
     def __init__(self, file , pretty):
+
         self.file = file
         self.directory = pathlib.Path(__file__).parent
         self.output = ""
@@ -185,6 +186,10 @@ class Gedcom:
                 age = death_date.year - born_date.year
             self.userdata[key]["AGE"] = age
 
+
+
+
+
         error = self.prettyTablefunc()
         if error is None:
             error = "No errors found"
@@ -213,7 +218,13 @@ class Gedcom:
                 spouse = value["SPOUSE"]
             except KeyError:
                 spouse = "NA"
+
+            if(death == "NA" and age > 150):
+                raise AgeMoreOnefifty("{} Age is more than 150".format(name))
+
             self.ptUsers.add_row([key, name, gender, birthdate, age, alive, death, child, spouse])
+
+
 
         if self.bool_to_print is True:
             print(self.ptUsers)
@@ -223,6 +234,7 @@ class Gedcom:
         for key in sorted(self.familydata.keys()):
 
             value = self.familydata[key]
+
             husband_id = value["HUSB"]
             husband_name = self.userdata[husband_id]["NAME"]
             try:
@@ -235,11 +247,16 @@ class Gedcom:
                 divorce = self.userdata[husband_id]["DIVDATE"]
             except KeyError:
                 divorce = "NA"
+
             if (divorce != "NA") and (datetime.datetime.strptime(divorce, '%d %b %Y')> datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')):
                 raise DivorceAfterDeathError("{} divorces after death".format(husband_name))
             if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
                 if self.userdata[husband_id]["FAMC"] == self.userdata[wife_id]["FAMC"]:
                     raise SiblingMarriageError("{} and {} are siblings".format(husband_name, wife_name))
+            if (divorce != "NA") and not (self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "F"):
+                raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
+
+
             try:
                 child = value["CHIL"]
             except KeyError:
@@ -257,6 +274,12 @@ class SiblingMarriageError(Exception):
    """Raised when husb/wife divorce after their death"""
    pass
 
+class AgeMoreOnefifty(Exception):
+    pass
+
+class GenderError(Exception):
+    pass
+
 class TestCases(unittest.TestCase):
 
 
@@ -266,6 +289,8 @@ class TestCases(unittest.TestCase):
         """
         self.x = Gedcom("proj03testDivorceAfterDeath.ged", "n")
         self.x1 = Gedcom("proj04testsiblingsmarriage.ged", "n")
+        self.x2 = Gedcom("proj03testAgeLessOneFifty.ged", "n")
+        self.x3 = Gedcom("proj04testCorrectGender.ged", "n")
 
     def test_divorceAfterDeath(self):
         """
@@ -278,6 +303,20 @@ class TestCases(unittest.TestCase):
         Test if siblings marry
         """
         self.assertRaises(SiblingMarriageError, lambda: self.x1.analyze())
+
+    def test_AgeLessOneFifty(self):
+        """
+        Test if siblings marry
+        """
+        self.assertRaises(AgeMoreOnefifty, lambda: self.x2.analyze())
+
+    def test_ProperGender(self):
+        """
+        Test if siblings marry
+        """
+        self.assertRaises(GenderError, lambda: self.x3.analyze())
+
+
 
 
 def main():
