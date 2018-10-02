@@ -222,8 +222,6 @@ class Gedcom:
             if(death == "NA" and age > 150):
                 raise AgeMoreOnefifty("{} Age is more than 150".format(name))
 
-
-
             self.ptUsers.add_row([key, name, gender, birthdate, age, alive, death, child, spouse])
 
 
@@ -255,7 +253,7 @@ class Gedcom:
             if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
                 if self.userdata[husband_id]["FAMC"] == self.userdata[wife_id]["FAMC"]:
                     raise SiblingMarriageError("{} and {} are siblings".format(husband_name, wife_name))
-            if (divorce != "NA") and self.userdata[husband_id]["SEX"] == "F" and self.userdata[wife_id]["SEX"] == "M":
+            if (divorce != "NA") and not (self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "F"):
                 raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
 
 
