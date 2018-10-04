@@ -92,11 +92,19 @@ class Gedcom:
                             continue
                         elif split_words[2] == "INDI":
                             self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] +  "\n"
+
+                            if self.userdata.__contains__(split_words[1]):
+                                raise RepetitiveID("Repetitive individual ID {}".format(split_words[1]))  #Check unipue individual ID. Xiaopeng Yuan
+
                             self.userdata[split_words[1]] = {}
                             curr_id = split_words[1]
                             continue
                         elif split_words[2] == "FAM":
                             self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] +  "\n"
+
+                            if self.familydata.__contains__(split_words[1]):
+                                raise RepetitiveID("Repetitive family ID {}".format(split_words[1]))   #Check unipue family ID. Xiaopeng Yuan
+
                             self.familydata[split_words[1]] = {}
                             self.familydata[split_words[1]]["CHIL"] = []
                             curr_id = split_words[1]
@@ -219,6 +227,13 @@ class Gedcom:
             except KeyError:
                 spouse = "NA"
 
+            try:                                   #Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
+                marriage = value["MARRDATE"]
+            except KeyError:
+                marriage = "NA"
+            if (marriage != "NA" and (int(marriage.split()[2]) - int(birthdate.split()[2])) < 14):
+                raise MarriageBefore14("{} Marriage before age 14".format(name))
+
             if(death == "NA" and age > 150):
                 raise AgeMoreOnefifty("{} Age is more than 150".format(name))
 
@@ -257,6 +272,7 @@ class Gedcom:
                 raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
 
 
+
             try:
                 child = value["CHIL"]
             except KeyError:
@@ -277,7 +293,13 @@ class SiblingMarriageError(Exception):
 class AgeMoreOnefifty(Exception):
     pass
 
+class MarriageBefore14(Exception):
+    pass
+
 class GenderError(Exception):
+    pass
+
+class RepetitiveID(Exception):
     pass
 
 class TestCases(unittest.TestCase):
@@ -291,6 +313,8 @@ class TestCases(unittest.TestCase):
         self.x1 = Gedcom("proj04testsiblingsmarriage.ged", "n")
         self.x2 = Gedcom("proj03testAgeLessOneFifty.ged", "n")
         self.x3 = Gedcom("proj04testCorrectGender.ged", "n")
+        self.x4 = Gedcom("proj04testMarriagebefore14.ged", "n")
+        self.x5 = Gedcom("proj04testUniqueID.ged", "n")
 
     def test_divorceAfterDeath(self):
         """
@@ -315,6 +339,18 @@ class TestCases(unittest.TestCase):
         Test if siblings marry
         """
         self.assertRaises(GenderError, lambda: self.x3.analyze())
+
+    def test_MarriageBefore14(self):
+        """
+        Test if marriage before 14
+        """
+        self.assertRaises(MarriageBefore14, lambda: self.x4.analyze())
+
+    def test_RepetitiveID(self):
+        """
+        Test if ID is unique
+        """
+        self.assertRaises(RepetitiveID, lambda: self.x5.analyze())
 
 
 
