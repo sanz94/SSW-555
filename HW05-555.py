@@ -25,6 +25,7 @@ class Gedcom:
         self.userdata = defaultdict(dict)
         self.familydata = defaultdict(dict)
         self.tempdata = ""
+        self.curr_id = ""
         self.ptUsers = PrettyTable()
         self.ptFamily = PrettyTable()
         if pretty.lower() == "y":
@@ -40,8 +41,7 @@ class Gedcom:
         """
 
         if self.file.endswith("ged"):
-            read_lines = self.open_file()
-            self.parse_file(read_lines)
+            self.check_file(self.open_file())
             error = self.calc_data()
             return self.output, self.userdata, self.familydata, error
         else:
@@ -60,7 +60,7 @@ class Gedcom:
             sys.exit()
         return lines
 
-    def parse_file(self, read_lines):
+    def check_file(self, read_lines):
         """
         Function to read input file line by line and generate output
         :param read_lines: list
@@ -73,96 +73,108 @@ class Gedcom:
                 return self.output
             split_words = line.split(" ")
             len_split_words = len(split_words)
-            if split_words[0] in ['0', '1', '2']: #splitwords[0] will get the level value and check if it is 0 or 1 or 2
-                self.output += "-->" + " " + line + "\n" #append arrow to output
-                if split_words[1] == "F12":
-                    if 1:
-                        pass
-                if len_split_words > 3: # if there is a big name or date, append it to a single value in list
-                    split_words[2] += " " + " ".join(split_words[3:])
-                try:
-                    if split_words[0] == '0': # if it is defining INDI or FAM, change order
-
-                        if split_words[1] in ["HEAD", "TRLR"]:
-                            if len_split_words > 2:
-                                self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + \
-                                               split_words[2] + "\n"
-                                continue
-                            self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + "\n"
-                            continue
-                        elif split_words[2] == "INDI":
-                            self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] +  "\n"
-
-                            if self.userdata.__contains__(split_words[1]):
-                                raise RepetitiveID("Repetitive individual ID {}".format(split_words[1]))  #Check unipue individual ID. Xiaopeng Yuan
-
-                            self.userdata[split_words[1]] = {}
-                            curr_id = split_words[1]
-                            continue
-                        elif split_words[2] == "FAM":
-                            self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] +  "\n"
-
-                            if self.familydata.__contains__(split_words[1]):
-                                raise RepetitiveID("Repetitive family ID {}".format(split_words[1]))   #Check unipue family ID. Xiaopeng Yuan
-
-                            self.familydata[split_words[1]] = {}
-                            self.familydata[split_words[1]]["CHIL"] = []
-                            curr_id = split_words[1]
-                            continue
-                except KeyError: # if invalid level value, throw eror
-                    raise ValueError("Invalid line found on {}".format(offset + 1))
-                try:
-                    if split_words[1] not in VALID_VALUES[split_words[0]]: #check if splitwords[1] which is the tag value is in the global dictionary
-
-
-
-                        if len_split_words < 3: # if no, add N after tag
-                            self.tempdata = split_words[1]
-                            self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "N" + "|" + "\n"
-                        else:
-                            #if split_words[2] == "INDI":
-                            #   self.userdata[curr_id].append({split_words[1]: split_words[2]})
-                            #if split_words[2] == "FAM":
-                            #   self.familydata[curr_id].append({split_words[1]: split_words[2]})
-                            self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "N" + "|" + \
-                                           split_words[2] + "\n"
-                    else:   #if yes add Y after tag
-                        if len_split_words < 3:
-                            self.tempdata = split_words[1]
-                            self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + "\n"
-                        else:
-
-                            self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + \
-                                           split_words[2] + "\n"
-                            if split_words[1] == "NOTE":
-                                continue
-                            if split_words[1] in ["HUSB", "WIFE"]:
-                                self.familydata[curr_id][split_words[1]] = split_words[2]
-                                continue
-                            if split_words[1] == "CHIL":
-                                self.familydata[curr_id][split_words[1]].append(split_words[2])
-                                continue
-                            if split_words[0] == "2":
-                                if curr_id in self.userdata:
-                                    self.userdata[curr_id][self.tempdata + split_words[1]] = split_words[2]
-                                    continue
-                                elif split_words[1] == "DATE":
-                                    husband = self.familydata[curr_id]["HUSB"]
-                                    wife = self.familydata[curr_id]["WIFE"]
-                                    self.userdata[husband][self.tempdata + split_words[1]] = split_words[2]
-                                    self.userdata[wife][self.tempdata + split_words[1]] = split_words[2]
-                                else:
-                                    continue
-                            if split_words[1] in ["FAM", "INDI"]:
-                                continue
-                            self.userdata[curr_id][split_words[1]] = split_words[2]
-                except KeyError: # if invalid level value, throw eror
-                    print("Invalid line found on {}".format(offset + 1))
-
+            process_flow_dict = {["0", "1", "2"]: self.parse_file}
+            if split_words[0] in process_flow_dict:
+                process_flow_dict[split_words[0]](line, split_words, len_split_words, offset)
             else:
                 return "Invalid line on {}".format(line)
 
-        return self.output
+    def append2userdata(self, split_words):
+
+        #self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] + "\n"
+
+        if self.userdata.__contains__(split_words[1]):
+            raise RepetitiveID(
+                "Repetitive individual ID {}".format(split_words[1]))  # Check unipue individual ID. Xiaopeng Yuan
+
+        self.userdata[split_words[1]] = {}
+        self.curr_id = split_words[1]
+
+
+    def append2familydata(self, split_words):
+        if self.familydata.__contains__(split_words[1]):
+            raise RepetitiveID("Repetitive family ID {}".format(split_words[1]))  # Check unipue family ID. Xiaopeng Yuan
+
+        self.familydata[split_words[1]] = {}
+        self.familydata[split_words[1]]["CHIL"] = []
+        self.curr_id = split_words[1]
+
+    def parse_file(self, line, split_words, len_split_words, offset):
+
+        #self.output += "-->" + " " + line + "\n" #append arrow to output
+        if len_split_words > 3: # if there is a big name or date, append it to a single value in list
+            split_words[2] += " " + " ".join(split_words[3:])
+        process_flow_dict = {"INDI": self.append2userdata, "FAM": self.append2familydata}
+        if split_words[2] in process_flow_dict:
+            process_flow_dict[split_words[2]](split_words)
+            """try:
+        if split_words[0] == '0': # if it is defining INDI or FAM, change order
+
+            
+            if split_words[1] in ["HEAD", "TRLR"]:
+                if len_split_words > 2:
+                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + \
+                                   split_words[2] + "\n"
+                    continue
+                self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + "\n"
+                continue
+            
+                   # self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] +  "\n"
+
+                    
+        except KeyError: # if invalid level value, throw eror
+            raise ValueError("Invalid line found on {}".format(offset + 1))
+        """
+
+        process_flow2_dict = {VALID_VALUES[split_words[0]]: parse}
+        try:
+            if split_words[1] not in VALID_VALUES[split_words[0]]: #check if splitwords[1] which is the tag value is in the global dictionary
+
+
+
+                if len_split_words < 3: # if no, add N after tag
+                    self.tempdata = split_words[1]
+                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "N" + "|" + "\n"
+                else:
+                    #if split_words[2] == "INDI":
+                    #   self.userdata[curr_id].append({split_words[1]: split_words[2]})
+                    #if split_words[2] == "FAM":
+                    #   self.familydata[curr_id].append({split_words[1]: split_words[2]})
+                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "N" + "|" + \
+                                   split_words[2] + "\n"
+            else:   #if yes add Y after tag
+                if len_split_words < 3:
+                    self.tempdata = split_words[1]
+                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + "\n"
+                else:
+
+                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + \
+                                   split_words[2] + "\n"
+                    if split_words[1] == "NOTE":
+                        continue
+                    if split_words[1] in ["HUSB", "WIFE"]:
+                        self.familydata[self.curr_id][split_words[1]] = split_words[2]
+                        continue
+                    if split_words[1] == "CHIL":
+                        self.familydata[self.curr_id][split_words[1]].append(split_words[2])
+                        continue
+                    if split_words[0] == "2":
+                        if self.curr_id in self.userdata:
+                            self.userdata[self.curr_id][self.tempdata + split_words[1]] = split_words[2]
+                            continue
+                        elif split_words[1] == "DATE":
+                            husband = self.familydata[self.curr_id]["HUSB"]
+                            wife = self.familydata[self.curr_id]["WIFE"]
+                            self.userdata[husband][self.tempdata + split_words[1]] = split_words[2]
+                            self.userdata[wife][self.tempdata + split_words[1]] = split_words[2]
+                        else:
+                            continue
+                    if split_words[1] in ["FAM", "INDI"]:
+                        continue
+                    self.userdata[self.curr_id][split_words[1]] = split_words[2]
+        except KeyError: # if invalid level value, throw eror
+            print("Invalid line found on {}".format(offset + 1))
+
 
     def calc_data(self):
 
