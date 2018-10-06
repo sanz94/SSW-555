@@ -196,8 +196,10 @@ class Gedcom:
             age = value["AGE"]
             alive = value["ALIVE"]
             single_list = []
-            if value["MARR"] == "NA":
-                single_list.append(name)
+            try:
+                value["MARR"]
+            except KeyError:
+                single_list.append(value["NAME"])
             try:
                 death = value["DEATDATE"]
             except KeyError:
