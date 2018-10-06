@@ -73,15 +73,43 @@ class Gedcom:
                 return self.output
             split_words = line.split(" ")
             len_split_words = len(split_words)
-            process_flow_dict = {["0", "1", "2"]: self.parse_file}
-            if split_words[0] in process_flow_dict:
-                process_flow_dict[split_words[0]](line, split_words, len_split_words, offset)
+            if split_words[0] in ["0", "1", "2"]:
+                self.parse_file(line, split_words, len_split_words, offset)
             else:
                 return "Invalid line on {}".format(line)
 
-    def append2userdata(self, split_words):
+    def parse_file(self, line, split_words, len_split_words, offset):
 
-        #self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] + "\n"
+        if len_split_words > 3: # if there is a big name or date, append it to a single value in list
+            split_words[2] += " " + " ".join(split_words[3:])
+        process_flow_dict = {"INDI": self.append2userdata, "FAM": self.append2familydata}
+        if split_words[0] == "0":
+            if split_words[2] in process_flow_dict:
+                process_flow_dict[split_words[2]](split_words)
+                return
+        process_flow2_dict = {"NOTE": self.donothing, "HUSB": self.appendHusbWifedata, "WIFE": self.appendHusbWifedata, "CHIL": self.appendChilddata, "FAM": self.donothing, "INDI": self.donothing}
+
+        try:
+            if split_words[1] not in VALID_VALUES[split_words[0]]: #check if splitwords[1] which is the tag value is in the global dictionary
+                if len_split_words < 3: # if no, add N after tag
+                    self.tempdata = split_words[1]
+            else:   #if yes add Y after tag
+                if len_split_words < 3:
+                    self.tempdata = split_words[1]
+                else:
+                    if split_words[1] in process_flow2_dict:
+
+                        process_flow2_dict[split_words[1]](split_words)
+                        return
+                    if split_words[0] == "2":
+                        self.appendDates(split_words)
+                        return
+                    else:
+                        self.userdata[self.curr_id][split_words[1]] = split_words[2]
+        except KeyError: # if invalid level value, throw eror
+            print("Invalid line found on {}".format(offset + 1))
+
+    def append2userdata(self, split_words):
 
         if self.userdata.__contains__(split_words[1]):
             raise RepetitiveID(
@@ -92,92 +120,33 @@ class Gedcom:
 
 
     def append2familydata(self, split_words):
+
         if self.familydata.__contains__(split_words[1]):
             raise RepetitiveID("Repetitive family ID {}".format(split_words[1]))  # Check unipue family ID. Xiaopeng Yuan
-
         self.familydata[split_words[1]] = {}
         self.familydata[split_words[1]]["CHIL"] = []
         self.curr_id = split_words[1]
 
-    def parse_file(self, line, split_words, len_split_words, offset):
+    def appendHusbWifedata(self, split_words):
+        self.familydata[self.curr_id][split_words[1]] = split_words[2]
 
-        #self.output += "-->" + " " + line + "\n" #append arrow to output
-        if len_split_words > 3: # if there is a big name or date, append it to a single value in list
-            split_words[2] += " " + " ".join(split_words[3:])
-        process_flow_dict = {"INDI": self.append2userdata, "FAM": self.append2familydata}
-        if split_words[2] in process_flow_dict:
-            process_flow_dict[split_words[2]](split_words)
-            """try:
-        if split_words[0] == '0': # if it is defining INDI or FAM, change order
+    def appendChilddata(self, split_words):
+        self.familydata[self.curr_id][split_words[1]].append(split_words[2])
 
-            
-            if split_words[1] in ["HEAD", "TRLR"]:
-                if len_split_words > 2:
-                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + \
-                                   split_words[2] + "\n"
-                    continue
-                self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + "\n"
-                continue
-            
-                   # self.output += "<--" + " " + split_words[0] + "|" + split_words[2] + "|" + "Y" + "|" + split_words[1] +  "\n"
+    def appendDates(self, split_words):
 
-                    
-        except KeyError: # if invalid level value, throw eror
-            raise ValueError("Invalid line found on {}".format(offset + 1))
-        """
+        if self.curr_id in self.userdata:
+            self.userdata[self.curr_id][self.tempdata + split_words[1]] = split_words[2]
+        elif split_words[1] == "DATE":
+            husband = self.familydata[self.curr_id]["HUSB"]
+            wife = self.familydata[self.curr_id]["WIFE"]
+            self.userdata[husband][self.tempdata + split_words[1]] = split_words[2]
+            self.userdata[wife][self.tempdata + split_words[1]] = split_words[2]
 
-        process_flow2_dict = {VALID_VALUES[split_words[0]]: parse}
-        try:
-            if split_words[1] not in VALID_VALUES[split_words[0]]: #check if splitwords[1] which is the tag value is in the global dictionary
-
-
-
-                if len_split_words < 3: # if no, add N after tag
-                    self.tempdata = split_words[1]
-                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "N" + "|" + "\n"
-                else:
-                    #if split_words[2] == "INDI":
-                    #   self.userdata[curr_id].append({split_words[1]: split_words[2]})
-                    #if split_words[2] == "FAM":
-                    #   self.familydata[curr_id].append({split_words[1]: split_words[2]})
-                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "N" + "|" + \
-                                   split_words[2] + "\n"
-            else:   #if yes add Y after tag
-                if len_split_words < 3:
-                    self.tempdata = split_words[1]
-                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + "\n"
-                else:
-
-                    self.output += "<--" + " " + split_words[0] + "|" + split_words[1] + "|" + "Y" + "|" + \
-                                   split_words[2] + "\n"
-                    if split_words[1] == "NOTE":
-                        continue
-                    if split_words[1] in ["HUSB", "WIFE"]:
-                        self.familydata[self.curr_id][split_words[1]] = split_words[2]
-                        continue
-                    if split_words[1] == "CHIL":
-                        self.familydata[self.curr_id][split_words[1]].append(split_words[2])
-                        continue
-                    if split_words[0] == "2":
-                        if self.curr_id in self.userdata:
-                            self.userdata[self.curr_id][self.tempdata + split_words[1]] = split_words[2]
-                            continue
-                        elif split_words[1] == "DATE":
-                            husband = self.familydata[self.curr_id]["HUSB"]
-                            wife = self.familydata[self.curr_id]["WIFE"]
-                            self.userdata[husband][self.tempdata + split_words[1]] = split_words[2]
-                            self.userdata[wife][self.tempdata + split_words[1]] = split_words[2]
-                        else:
-                            continue
-                    if split_words[1] in ["FAM", "INDI"]:
-                        continue
-                    self.userdata[self.curr_id][split_words[1]] = split_words[2]
-        except KeyError: # if invalid level value, throw eror
-            print("Invalid line found on {}".format(offset + 1))
-
+    def donothing(self, split_words):
+        return
 
     def calc_data(self):
-
         for key in self.userdata:
 
             today = date.today()
@@ -226,6 +195,9 @@ class Gedcom:
             birthdate = value["BIRTDATE"]
             age = value["AGE"]
             alive = value["ALIVE"]
+            single_list = []
+            if value["MARR"] == "NA":
+                single_list.append(name)
             try:
                 death = value["DEATDATE"]
             except KeyError:
@@ -263,7 +235,9 @@ class Gedcom:
             value = self.familydata[key]
 
             husband_id = value["HUSB"]
+            children = value["CHIL"]
             husband_name = self.userdata[husband_id]["NAME"]
+            husband_firstname, husband_lastname = husband_name.split()
             try:
                 marriage = self.userdata[husband_id]["MARRDATE"]
             except KeyError:
@@ -275,6 +249,12 @@ class Gedcom:
             except KeyError:
                 divorce = "NA"
 
+            for child in children:
+                if self.userdata[child]["SEX"] == "M":
+                    child_firstname, child_lastname = self.userdata[child]["NAME"].split()
+                    if child_lastname.strip("/") != husband_firstname:
+                        raise MaleLastNames("Child {} and Father {} have different last names".format(self.userdata[child]["NAME"], husband_name))
+
             if (divorce != "NA") and (datetime.datetime.strptime(divorce, '%d %b %Y')> datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')):
                 raise DivorceAfterDeathError("{} divorces after death".format(husband_name))
             if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
@@ -282,8 +262,6 @@ class Gedcom:
                     raise SiblingMarriageError("{} and {} are siblings".format(husband_name, wife_name))
             if (divorce != "NA") and not (self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "F"):
                 raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
-
-
 
             try:
                 child = value["CHIL"]
@@ -314,6 +292,9 @@ class GenderError(Exception):
 class RepetitiveID(Exception):
     pass
 
+class MaleLastNames(Exception):
+    pass
+
 class TestCases(unittest.TestCase):
 
 
@@ -327,6 +308,7 @@ class TestCases(unittest.TestCase):
         self.x3 = Gedcom("proj04testCorrectGender.ged", "n")
         self.x4 = Gedcom("proj04testMarriagebefore14.ged", "n")
         self.x5 = Gedcom("proj04testUniqueID.ged", "n")
+        self.x6 = Gedcom("proj04testmalelastnames.ged", "n")
 
     def test_divorceAfterDeath(self):
         """
@@ -364,6 +346,12 @@ class TestCases(unittest.TestCase):
         """
         self.assertRaises(RepetitiveID, lambda: self.x5.analyze())
 
+    def test_malelastnames(self):
+        """
+        Test if male children have same last name in family
+        """
+        self.assertRaises(MaleLastNames, lambda: self.x6.analyze())
+
 
 
 
@@ -379,5 +367,5 @@ def main():
     #print(familydata)
 
 if __name__ == '__main__':
-    unittest.main(exit=False, verbosity=2)
+    #unittest.main(exit=False, verbosity=2)
     main()
