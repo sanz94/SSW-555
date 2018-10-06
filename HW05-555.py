@@ -217,6 +217,7 @@ class Gedcom:
                 marriage = value["MARRDATE"]
             except KeyError:
                 marriage = "NA"
+
             if (marriage != "NA" and (int(marriage.split()[2]) - int(birthdate.split()[2])) < 14):
                 raise MarriageBefore14("{} Marriage before age 14".format(name))
 
@@ -225,9 +226,7 @@ class Gedcom:
 
             self.ptUsers.add_row([key, name, gender, birthdate, age, alive, death, child, spouse])
 
-
-
-        if self.bool_to_print is True:
+        if self.bool_to_print:
             print(self.ptUsers)
 
         self.ptFamily.field_names = ["ID", "MARRIAGE DATE", "DIVORCE DATE", "HUSBAND ID", "HUSBAND NAME", "WIFE ID", "WIFE NAME", "CHILDREN"]
