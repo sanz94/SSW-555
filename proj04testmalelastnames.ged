@@ -16,7 +16,7 @@
 2 DATE 30 APR 1984
 0 NOTE Defining Rajasekaran
 0 ID03 INDI
-1 NAME Rajasekaran /Srinivasan/
+1 NAME Srinivasan /Rajasekaran/
 1 SEX M
 1 BIRT
 2 DATE 16 JUN 1960
@@ -26,8 +26,8 @@
 2 DATE 30 APR 1984
 0 NOTE Defining Monica Rajasekaran
 0 ID04 INDI
-1 NAME Monica /Rajasekaran/
-1 SEX F
+1 NAME Monica /Patel/
+1 SEX M
 1 BIRT
 2 DATE 10 MAY 1992
 1 FAMC F15
@@ -58,6 +58,8 @@
 1 BIRT
 2 DATE 08 DEC 1880
 1 FAMS F13
+1 MARR 
+2 DATE 18 NOV 1905
 1 DIV
 2 DATE 07 APR 1910
 1 MARR
@@ -75,9 +77,9 @@
 1 MARR 
 2 DATE 18 NOV 1905
 1 DIV
-2 DATE 07 APR 1919
+2 DATE 07 APR 1910
 1 DEAT
-2 DATE 20 DEC 1910
+2 DATE 20 DEC 1919
 0 NOTE Defining Nisha
 0 ID09 INDI
 1 NAME Nisha /Reddy/
