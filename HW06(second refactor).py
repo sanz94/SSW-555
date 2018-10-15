@@ -193,6 +193,7 @@ class Gedcom:
     def prettyTablefunc(self):
 
         self.ptUsers.field_names = ["ID", "NAME", "GENDER", "BIRTH DATE", "AGE", "ALIVE", "DEATH", "CHILD", "SPOUSE"]
+        single_list = []
 
         for key in sorted(self.userdata.keys()):
             value = self.userdata[key]
@@ -201,7 +202,7 @@ class Gedcom:
             birthdate = value["BIRTDATE"]
             age = value["AGE"]
             alive = value["ALIVE"]
-            single_list = []
+
             try:
                 value["MARR"]
             except KeyError:
@@ -277,6 +278,7 @@ class Gedcom:
                 child = "NA"
             self.ptFamily.add_row([key, marriage, divorce, husband_id, husband_name, wife_id, wife_name, child])
 
+        print("List of all singles in Gedcom file are: {}".format(single_list))
         if self.bool_to_print is True:
             print(self.ptFamily)
 
@@ -361,8 +363,6 @@ class TestCases(unittest.TestCase):
         self.assertRaises(MaleLastNames, lambda: self.x6.analyze())
 
 
-
-
 def main():
 
     file = input("Enter file name: \n")
@@ -374,7 +374,8 @@ def main():
     #print(userdata)
     #print(familydata)
 
+
 if __name__ == '__main__':
-    unittest.main(exit=False, verbosity=2)
-    #main()
-    
+    main()
+    unittest.main()
+
