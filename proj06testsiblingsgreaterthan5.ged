@@ -16,7 +16,7 @@
 2 DATE 30 APR 1984
 0 NOTE Defining Rajasekaran
 0 ID03 INDI
-1 NAME Srinivasan /Rajasekaran/
+1 NAME Rajasekaran /Srinivasan/
 1 SEX M
 1 BIRT
 2 DATE 16 JUN 1960
@@ -26,10 +26,34 @@
 2 DATE 30 APR 1984
 0 NOTE Defining Monica Rajasekaran
 0 ID04 INDI
-1 NAME Monica /Patel/
-1 SEX M
+1 NAME Monica /Rajasekaran/
+1 SEX F
 1 BIRT
 2 DATE 10 MAY 1992
+1 FAMC F15
+0 ID12 INDI
+1 NAME A /Rajasekaran/
+1 SEX F
+1 BIRT
+2 DATE 10 MAY 1996
+1 FAMC F15
+0 ID13 INDI
+1 NAME B /Rajasekaran/
+1 SEX F
+1 BIRT
+2 DATE 10 MAY 1998
+1 FAMC F15
+0 ID14 INDI
+1 NAME C /Rajasekaran/
+1 SEX F
+1 BIRT
+2 DATE 10 MAY 2000
+1 FAMC F15
+0 ID15 INDI
+1 NAME D /Rajasekaran/
+1 SEX F
+1 BIRT
+2 DATE 10 MAY 2002
 1 FAMC F15
 0 NOTE Defining Pakeeleela
 0 ID05 INDI
@@ -42,7 +66,7 @@
 2 DATE 30 MAR 1940
 0 NOTE Defining Srinivasan
 0 ID06 INDI
-1 NAME Srinevasan /Kumar/
+1 NAME Srinivasan /Kumar/
 1 SEX M
 1 BIRT
 2 DATE 02 MAY 1908
@@ -126,6 +150,10 @@
 1 WIFE ID02
 1 CHIL ID01
 1 CHIL ID04
+1 CHIL ID12
+1 CHIL ID13
+1 CHIL ID14
+1 CHIL ID15 
 
 
 
