@@ -1,0 +1,67 @@
+"D:\MS SE\venv\Scripts\python.exe" "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py"
+Enter file name: 
+proj04testCorrectGender.ged
+Do you want pretty table? y/n 
+y
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 372, in <module>
+|  ID  |           NAME           | GENDER |  BIRTH DATE | AGE | ALIVE |    DEATH    | CHILD | SPOUSE |
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 364, in main
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+| ID01 |  Sanjeev /Rajasekaran/   |   M    | 05 DEC 1994 |  24 |  True |      NA     |   NA  |   NA   |
+| ID02 |  Shanthi /Rajasekaran/   |   F    | 06 OCT 1962 |  56 |  True |      NA     |   NA  |   NA   |
+| ID03 | Rajasekaran /Srinivasan/ |   M    | 16 JUN 1960 |  58 |  True |      NA     |   NA  |   NA   |
+| ID04 |   Monica /Rajasekaran/   |   F    | 10 MAY 1992 |  26 |  True |      NA     |   NA  |   NA   |
+| ID05 | Pakeeleela /Srinivasan/  |   F    | 10 JUN 1910 | 108 |  True |      NA     |   NA  |   NA   |
+| ID06 |    Srinivasan /Kumar/    |   M    | 02 MAY 1908 |  42 | False | 10 FEB 1950 |   NA  |   NA   |
+| ID07 |    Priyanka /Govind/     |   M    | 08 DEC 1880 |  40 | False | 01 OCT 1920 |   NA  |   NA   |
+| ID08 |     Praveen /Kumar/      |   F    | 12 JUL 1878 |  41 | False | 20 DEC 1919 |   NA  |   NA   |
+| ID09 |      Nisha /Reddy/       |   F    | 12 JUN 1940 |  78 |  True |      NA     |   NA  |   NA   |
+| ID10 |      Ashwin /Kumar/      |   M    | 01 AUG 1877 |  44 | False | 20 DEC 1921 |   NA  |   NA   |
+| ID11 |      Ashok /Ashwin/      |   M    | 09 AUG 1925 |  93 |  True |      NA     |   NA  |   NA   |
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 45, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 182, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 265, in prettyTablefunc
+    raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
+__main__.GenderError: Praveen /Kumar/ and Priyanka /Govind/ are of same gender
+
+Process finished with exit code 1
+
+"D:\MS SE\venv\Scripts\python.exe" "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py"
+Enter file name: 
+proj03testDivorceAfterDeath.ged
+Do you want pretty table? y/n 
+y
+Traceback (most recent call last):
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 372, in <module>
+|  ID  |           NAME           | GENDER |  BIRTH DATE | AGE | ALIVE |    DEATH    | CHILD | SPOUSE |
+    main()
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 364, in main
+| ID01 |  Sanjeev /Rajasekaran/   |   M    | 05 DEC 1994 |  24 |  True |      NA     |   NA  |   NA   |
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 45, in analyze
+| ID02 |  Shanthi /Rajasekaran/   |   F    | 06 OCT 1962 |  56 |  True |      NA     |   NA  |   NA   |
+    error = self.calc_data()
+| ID03 | Rajasekaran /Srinivasan/ |   M    | 16 JUN 1960 |  58 |  True |      NA     |   NA  |   NA   |
+| ID04 |   Monica /Rajasekaran/   |   F    | 10 MAY 1992 |  26 |  True |      NA     |   NA  |   NA   |
+| ID05 | Pakeeleela /Srinivasan/  |   F    | 10 JUN 1910 | 108 |  True |      NA     |   NA  |   NA   |
+| ID06 |    Srinivasan /Kumar/    |   M    | 02 MAY 1908 |  42 | False | 10 FEB 1950 |   NA  |   NA   |
+| ID07 |    Priyanka /Govind/     |   F    | 08 DEC 1880 |  40 | False | 01 OCT 1920 |   NA  |   NA   |
+| ID08 |     Praveen /Kumar/      |   M    | 12 JUL 1878 |  32 | False | 20 DEC 1910 |   NA  |   NA   |
+| ID09 |      Nisha /Reddy/       |   F    | 12 JUN 1940 |  78 |  True |      NA     |   NA  |   NA   |
+| ID10 |      Ashwin /Kumar/      |   M    | 01 AUG 1877 |  44 | False | 20 DEC 1921 |   NA  |   NA   |
+| ID11 |      Ashok /Ashwin/      |   M    | 09 AUG 1925 |  93 |  True |      NA     |   NA  |   NA   |
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 182, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW05-555.py", line 260, in prettyTablefunc
+    raise DivorceAfterDeathError("{} divorces after death".format(husband_name))
+__main__.DivorceAfterDeathError: Praveen /Kumar/ divorces after death
