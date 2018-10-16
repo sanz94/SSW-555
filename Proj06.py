@@ -161,9 +161,9 @@ class Gedcom:
                 print("Invalid data for {}".format(self.userdata[key]))
                 sys.exit()
             try:
-                death_date = self.userdata[key]["DEATDATE"]
                 deathday = self.userdata[key]["DEATDATE"]
                 death_date = datetime.datetime.strptime(deathday, '%d %b %Y')
+                
                 alive_status = False
             except KeyError:
                 alive_status = True
@@ -219,7 +219,7 @@ class Gedcom:
             except KeyError:
                 spouse = "NA"
 
-            try:                                   #Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
+            try:                                   
                 marriage = value["MARRDATE"]
             except KeyError:
                 marriage = "NA"
@@ -235,13 +235,17 @@ class Gedcom:
             print(self.ptUsers)
 
         self.ptFamily.field_names = ["ID", "MARRIAGE DATE", "DIVORCE DATE", "HUSBAND ID", "HUSBAND NAME", "WIFE ID", "WIFE NAME", "CHILDREN"]
-
+        
+        
         for key in sorted(self.familydata.keys()):
-
+            
             value = self.familydata[key]
-
+            #print(value)
             husband_id = value["HUSB"]
             children = value["CHIL"]
+            if len(children) > 5:
+                raise SiblingGreaterThan5("Family {} has more than 5 siblings.".format(key))  #Check if the family has more than 5 sidlings.     Xiaopeng Yuan
+            
             husband_name = self.userdata[husband_id]["NAME"]
             husband_firstname, husband_lastname = husband_name.split()
             try:
@@ -256,6 +260,12 @@ class Gedcom:
                 divorce = "NA"
 
             for child in children:
+                birthday = datetime.datetime.strptime(self.userdata[child]["BIRTDATE"], '%d %b %Y')
+                for c in children:
+                    if c != child:
+                        c_birthday = datetime.datetime.strptime(self.userdata[c]["BIRTDATE"], '%d %b %Y')
+                        if abs(birthday - c_birthday).days < 275 and abs(birthday - c_birthday).days > 2:
+                            raise SiblingSpacing("Sibling {} and {} have invaild spacing.".format(child,c))
                 if self.userdata[child]["SEX"] == "M":
                     child_firstname, child_lastname = self.userdata[child]["NAME"].split()      
                     if child_lastname.strip("/") != husband_firstname:
@@ -303,6 +313,12 @@ class RepetitiveID(Exception):
 class MaleLastNames(Exception):
     pass
 
+class SiblingGreaterThan5(Exception):
+    pass
+
+class SiblingSpacing(Exception):
+    pass
+
 class TestCases(unittest.TestCase):
 
 
@@ -317,6 +333,8 @@ class TestCases(unittest.TestCase):
         self.x4 = Gedcom("proj04testMarriagebefore14.ged", "n")
         self.x5 = Gedcom("proj04testUniqueID.ged", "n")
         self.x6 = Gedcom("proj04testmalelastnames.ged", "n")
+        self.x7 = Gedcom("proj06testsiblingsgreaterthan5.ged", "n")
+        self.x8 = Gedcom("proj06testsiblingspacing.ged", "n")
 
     def test_divorceAfterDeath(self):
         """
@@ -359,6 +377,18 @@ class TestCases(unittest.TestCase):
         Test if male children have same last name in family
         """
         self.assertRaises(MaleLastNames, lambda: self.x6.analyze())
+        
+    def test_siblingsgreaterthan5(self):
+        """
+        Test if male children have same last name in family
+        """
+        self.assertRaises(SiblingGreaterThan5, lambda: self.x7.analyze())
+        
+    def test_siblingspacing(self):
+        """
+        Test if male children have same last name in family
+        """
+        self.assertRaises(SiblingSpacing, lambda: self.x8.analyze())
 
 
 
