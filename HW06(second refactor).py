@@ -150,9 +150,14 @@ class Gedcom:
 
             today = date.today()
 
+
             try:
                 birthday = self.userdata[key]["BIRTDATE"]
                 born_date = datetime.datetime.strptime(birthday, '%d %b %Y')
+                if(datetime.datetime.strptime(birthday, '%d %b %Y')> datetime.datetime.now()):
+                    raise DatesBefCurDate("{} Marriage before age 14".format(self.userdata[key]["NAME"]))
+
+
             except ValueError:
                 print("Invalid date found")
                 sys.exit()
@@ -162,6 +167,8 @@ class Gedcom:
                 sys.exit()
             try:
                 death_date = self.userdata[key]["DEATDATE"]
+                if (datetime.datetime.strptime(death_date, '%d %b %Y') > datetime.datetime.now()):
+                    raise DatesBefCurDate("{} Date after Current date".format(self.userdata[key]["NAME"]))
                 deathday = self.userdata[key]["DEATDATE"]
                 death_date = datetime.datetime.strptime(deathday, '%d %b %Y')
                 alive_status = False
@@ -176,10 +183,11 @@ class Gedcom:
 
             try:  # Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
                 marriageday = self.userdata[key]["MARRDATE"]
+
             except KeyError:
                 marriageday = "NA"
 
-            if (marriageday != "NA" and (int(marriageday.split()[2]) - int(birthday.split()[2])) < 14):
+            if (marriageday != "NA" and (int(marriageday.split()[2]) - int(birthday.split()[2])) < 14) and not(datetime.datetime.strptime(birthday, '%d %b %Y') > datetime.datetime.strptime(marriageday,'%d %b %Y')):
                 raise MarriageBefore14("{} Marriage before age 14".format(self.userdata[key]["NAME"]))
 
         error = self.prettyTablefunc()
@@ -220,10 +228,12 @@ class Gedcom:
 
             try:  # Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
                 marriage = value["MARRDATE"]
+                marriage1=self.userdata[key]["MARRDATE"]
+                if (datetime.datetime.strptime(marriage1, '%d %b %Y') > datetime.datetime.now()):
+                    raise DatesBefCurDate("{} Date after Current date".format(self.userdata[key]["NAME"]))
+
             except KeyError:
                 marriage = "NA"
-
-
 
             if death != "NA" and datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(death,
                                                                                                                '%d %b %Y'):
@@ -232,9 +242,13 @@ class Gedcom:
             if (death == "NA" and age > 150):
                 raise AgeMoreOnefifty("{} Age is more than 150".format(name))
 
-            if marriage != "NA" and datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(marriage,
-                                                                                                               '%d %b %Y'):
+            if marriage != "NA" and datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(marriage,'%d %b %Y') and not(death != "NA" and datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(death,'%d %b %Y')):
                 raise BirthBeforeMarraige("{} has birth  after  marraige".format(name))
+
+
+            if death != "NA" and datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(death,'%d %b %Y'):
+                raise BirthBeforeDeath("{} has birth date before born date".format(name))
+
 
 
             self.ptUsers.add_row([key, name, gender, birthdate, age, alive, death, child, spouse])
@@ -272,6 +286,9 @@ class Gedcom:
                 raise UniqueFirstNames("{} and {} have same first names".format(husband_firstname, wife_firstname))
             try:
                 divorce = self.userdata[husband_id]["DIVDATE"]
+                if (datetime.datetime.strptime(divorce, '%d %b %Y') > datetime.datetime.now()):
+                    raise DatesBefCurDate("{} Date after Current date".format(self.userdata[key]["NAME"]))
+
             except KeyError:
                 divorce = "NA"
 
@@ -306,6 +323,7 @@ class Gedcom:
             if (divorce != "NA") and (datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(divorce, '%d %b %Y')):
                 raise MarriageBeforeDivorce("{} marraige after divorce".format(name))
 
+
             if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
                 if self.userdata[husband_id]["FAMC"] == self.userdata[wife_id]["FAMC"]:
                     raise SiblingMarriageError("{} and {} are siblings".format(husband_name, wife_name))
@@ -313,7 +331,6 @@ class Gedcom:
             if (divorce != "NA") and not (
                     self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "F"):
                 raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
-
 
 
 
@@ -378,6 +395,12 @@ class MarriageBeforeDivorce(Exception):
 class BirthBeforeMarraige(Exception):
     pass
 
+class BirthBeforeDeath(Exception):
+    pass
+
+class DatesBefCurDate(Exception):
+    pass
+
 
 class TestCases(unittest.TestCase):
 
@@ -398,7 +421,8 @@ class TestCases(unittest.TestCase):
         self.x10 = Gedcom("proj06testuniquefirstnames.ged", "n")
         self.x11 = Gedcom("proj06testmarraigebeforedivorce.ged", "n")
         self.x12 = Gedcom("proj06testbirthbeforemarraige.ged", "n")
-
+        self.x13 = Gedcom("proj06testbirthbefiredeath.ged", "n")
+        self.x14 = Gedcom("proj06testdateaftercurrentdate.ged", "n")
 
     def test_divorceAfterDeath(self):
         """
@@ -466,24 +490,23 @@ class TestCases(unittest.TestCase):
         """
         self.assertRaises(UniqueFirstNames, lambda: self.x10.analyze())
 
-    def test_uniquefirstnames(self):
-        """
-        Test if male children have same last name in family
-        """
-        self.assertRaises(UniqueFirstNames, lambda: self.x10.analyze())
-
     def test_marraigebeforedivorce(self):
         self.assertRaises(MarriageBeforeDivorce, lambda: self.x11.analyze())
         """
         Test if marraige date is before divorce date
         """
-
-
     def test_birthbeforemaaraige(self):
         self.assertRaises(BirthBeforeMarraige, lambda: self.x12.analyze())
         """
         Test if birth date is before marraige date
         """
+
+    def test_birthbeforedeath(self):
+        self.assertRaises(BirthBeforeDeath, lambda: self.x13.analyze())
+
+
+    def test_datesbefcurdateself(self):
+        self.assertRaises(DatesBefCurDate, lambda: self.x14.analyze())
 
 
 
@@ -502,3 +525,4 @@ def main():
 if __name__ == '__main__':
     unittest.main(exit=False, verbosity=2)
     main()
+
