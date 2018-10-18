@@ -1,0 +1,137 @@
+Enter file name: 
+proj06testsiblingsgreaterthan5.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 272, in prettyTablefunc
+    key))  # Check if the family has more than 5 sidlings.     Xiaopeng Yuan
+__main__.SiblingGreaterThan5: Family F15 has more than 5 siblings.
+
+
+Enter file name: 
+proj06testsiblingspacing.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 310, in prettyTablefunc
+    raise SiblingSpacing("Sibling {} and {} have invaild spacing.".format(child, c))
+__main__.SiblingSpacing: Sibling ID01 and ID04 have invaild spacing.
+
+Enter file name: 
+proj06testmarriagebeforedeath.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 240, in prettyTablefunc
+    raise MarriageBeforeDeath("{} has Marriage before death".format(name))
+__main__.MarriageBeforeDeath: Priyanka /Govind/ has Marriage before death
+
+
+Enter file name: 
+proj06testuniquefirstnames.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 304, in prettyTablefunc
+    raise UniqueFirstNames("{} does not have unique first name".format(child_firstname))
+__main__.UniqueFirstNames: Sanjeev does not have unique first name
+
+Enter file name: 
+proj06testmarraigebeforedivorce.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 324, in prettyTablefunc
+    raise MarriageBeforeDivorce("{} marraige after divorce".format(name))
+__main__.MarriageBeforeDivorce: Ashok /Ashwin/ marraige after divorce
+
+
+Enter file name: 
+proj06testbirthbeforemarraige.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 246, in prettyTablefunc
+    raise BirthBeforeMarraige("{} has birth  after  marraige".format(name))
+__main__.BirthBeforeMarraige: Shanthi /Rajasekaran/ has birth  after  marraige
+
+
+Enter file name: 
+proj06testbirthbefiredeath.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
+    error = self.prettyTablefunc()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 250, in prettyTablefunc
+    raise BirthBeforeDeath("{} has birth date before born date".format(name))
+__main__.BirthBeforeDeath: Srinivasan /Kumar/ has birth date before born date
+
+Enter file name: 
+proj06testdateaftercurrentdate.ged
+Do you want pretty table? y/n 
+n
+Traceback (most recent call last):
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
+    main()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
+    op, userdata, familydata, error = g.analyze()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
+    error = self.calc_data()
+  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 158, in calc_data
+    raise DatesBefCurDate("{} Marriage before age 14".format(self.userdata[key]["NAME"]))
+__main__.DatesBefCurDate: Sanjeev /Rajasekaran/ Marriage before age 14

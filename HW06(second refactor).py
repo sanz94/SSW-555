@@ -1,3 +1,8 @@
+"""
+Program by Sanjeev Rajasekaran, Vikas Bhat, Ogadinma Njoku, Xiaopeng Yuang
+Use: Analyze gedcom files, takes a file as input
+"""
+
 import pathlib
 import unittest
 
@@ -7,15 +12,12 @@ from prettytable import PrettyTable
 import datetime
 from datetime import date
 
-# define possible values as global constant
-VALID_VALUES = {"0": ["INDI", "HEAD", "TRLR", "NOTE", "FAM"],
-                "1": ["NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "MARR", "HUSB", "WIFE", "CHIL", "DIV"],
-                "2": ["DATE"]}
-
+#define possible values as global constant
+VALID_VALUES = {"0": ["INDI", "HEAD", "TRLR", "NOTE", "FAM"], "1": ["NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "MARR", "HUSB", "WIFE","CHIL","DIV"], "2": ["DATE"]}
 
 class Gedcom:
 
-    def __init__(self, file, pretty):
+    def __init__(self, file , pretty):
 
         self.file = file
         self.directory = pathlib.Path(__file__).parent
@@ -67,7 +69,7 @@ class Gedcom:
 
         for offset, line in enumerate(read_lines):
             line = line.strip()
-            if line == "":  # if last line is reached, return output
+            if line == "": #if last line is reached, return output
                 return self.output
             split_words = line.split(" ")
             len_split_words = len(split_words)
@@ -78,26 +80,25 @@ class Gedcom:
 
     def parse_file(self, line, split_words, len_split_words, offset):
 
-        if len_split_words > 3:  # if there is a big name or date, append it to a single value in list
+        if len_split_words > 3: # if there is a big name or date, append it to a single value in list
             split_words[2] += " " + " ".join(split_words[3:])
         process_flow_dict = {"INDI": self.append2userdata, "FAM": self.append2familydata}
         if split_words[0] == "0":
             if split_words[2] in process_flow_dict:
                 process_flow_dict[split_words[2]](split_words)
                 return
-        process_flow2_dict = {"NOTE": self.donothing, "HUSB": self.appendHusbWifedata, "WIFE": self.appendHusbWifedata,
-                              "CHIL": self.appendChilddata, "FAM": self.donothing, "INDI": self.donothing}
+        process_flow2_dict = {"NOTE": self.donothing, "HUSB": self.appendHusbWifedata, "WIFE": self.appendHusbWifedata, "CHIL": self.appendChilddata, "FAM": self.donothing, "INDI": self.donothing}
 
         try:
-            if split_words[1] not in VALID_VALUES[
-                split_words[0]]:  # check if splitwords[1] which is the tag value is in the global dictionary
-                if len_split_words < 3:  # if no, add N after tag
+            if split_words[1] not in VALID_VALUES[split_words[0]]: #check if splitwords[1] which is the tag value is in the global dictionary
+                if len_split_words < 3: # if no, add N after tag
                     self.tempdata = split_words[1]
-            else:  # if yes add Y after tag
+            else:   #if yes add Y after tag
                 if len_split_words < 3:
                     self.tempdata = split_words[1]
                 else:
                     if split_words[1] in process_flow2_dict:
+
                         process_flow2_dict[split_words[1]](split_words)
                         return
                     if split_words[0] == "2":
@@ -105,23 +106,22 @@ class Gedcom:
                         return
                     else:
                         self.userdata[self.curr_id][split_words[1]] = split_words[2]
-        except KeyError:  # if invalid level value, throw eror
+        except KeyError: # if invalid level value, throw eror
             print("Invalid line found on {}".format(offset + 1))
 
     def append2userdata(self, split_words):
 
         if self.userdata.__contains__(split_words[1]):
-            raise RepetitiveID(
-                "Repetitive individual ID {}".format(split_words[1]))  # Check unipue individual ID. Xiaopeng Yuan
+            raise RepetitiveID("Repetitive individual ID {}".format(split_words[1]))  # Check unipue individual ID. Xiaopeng Yuan
 
         self.userdata[split_words[1]] = {}
         self.curr_id = split_words[1]
 
+
     def append2familydata(self, split_words):
 
         if self.familydata.__contains__(split_words[1]):
-            raise RepetitiveID(
-                "Repetitive family ID {}".format(split_words[1]))  # Check unipue family ID. Xiaopeng Yuan
+            raise RepetitiveID("Repetitive family ID {}".format(split_words[1]))  # Check unipue family ID. Xiaopeng Yuan
         self.familydata[split_words[1]] = {}
         self.familydata[split_words[1]]["CHIL"] = []
         self.curr_id = split_words[1]
@@ -150,14 +150,9 @@ class Gedcom:
 
             today = date.today()
 
-
             try:
                 birthday = self.userdata[key]["BIRTDATE"]
                 born_date = datetime.datetime.strptime(birthday, '%d %b %Y')
-                if(datetime.datetime.strptime(birthday, '%d %b %Y')> datetime.datetime.now()):
-                    raise DatesBefCurDate("{} Marriage before age 14".format(self.userdata[key]["NAME"]))
-
-
             except ValueError:
                 print("Invalid date found")
                 sys.exit()
@@ -167,8 +162,6 @@ class Gedcom:
                 sys.exit()
             try:
                 death_date = self.userdata[key]["DEATDATE"]
-                if (datetime.datetime.strptime(death_date, '%d %b %Y') > datetime.datetime.now()):
-                    raise DatesBefCurDate("{} Date after Current date".format(self.userdata[key]["NAME"]))
                 deathday = self.userdata[key]["DEATDATE"]
                 death_date = datetime.datetime.strptime(deathday, '%d %b %Y')
                 alive_status = False
@@ -180,15 +173,17 @@ class Gedcom:
             else:
                 age = death_date.year - born_date.year
             self.userdata[key]["AGE"] = age
-
-            try:  # Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
+            
+            try:                                   #Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
                 marriageday = self.userdata[key]["MARRDATE"]
-
             except KeyError:
                 marriageday = "NA"
-
-            if (marriageday != "NA" and (int(marriageday.split()[2]) - int(birthday.split()[2])) < 14) and not(datetime.datetime.strptime(birthday, '%d %b %Y') > datetime.datetime.strptime(marriageday,'%d %b %Y')):
+                
+            if (marriageday != "NA" and (int(marriageday.split()[2]) - int(birthday.split()[2])) < 14):
                 raise MarriageBefore14("{} Marriage before age 14".format(self.userdata[key]["NAME"]))
+
+
+
 
         error = self.prettyTablefunc()
         if error is None:
@@ -226,38 +221,23 @@ class Gedcom:
             except KeyError:
                 spouse = "NA"
 
-            try:  # Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
+            try:                                   #Check if marriage before 14, also add something to test cases.  Xiaopeng Yuan
                 marriage = value["MARRDATE"]
-                marriage1=self.userdata[key]["MARRDATE"]
-                if (datetime.datetime.strptime(marriage1, '%d %b %Y') > datetime.datetime.now()):
-                    raise DatesBefCurDate("{} Date after Current date".format(self.userdata[key]["NAME"]))
-
             except KeyError:
                 marriage = "NA"
 
-            if death != "NA" and datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(death,
-                                                                                                               '%d %b %Y'):
+            if death != "NA" and datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(death, '%d %b %Y'):
                 raise MarriageBeforeDeath("{} has Marriage before death".format(name))
 
-            if (death == "NA" and age > 150):
+            if(death == "NA" and age > 150):
                 raise AgeMoreOnefifty("{} Age is more than 150".format(name))
-
-            if marriage != "NA" and datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(marriage,'%d %b %Y') and not(death != "NA" and datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(death,'%d %b %Y')):
-                raise BirthBeforeMarraige("{} has birth  after  marraige".format(name))
-
-
-            if death != "NA" and datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(death,'%d %b %Y'):
-                raise BirthBeforeDeath("{} has birth date before born date".format(name))
-
-
 
             self.ptUsers.add_row([key, name, gender, birthdate, age, alive, death, child, spouse])
 
         if self.bool_to_print:
             print(self.ptUsers)
 
-        self.ptFamily.field_names = ["ID", "MARRIAGE DATE", "DIVORCE DATE", "HUSBAND ID", "HUSBAND NAME", "WIFE ID",
-                                     "WIFE NAME", "CHILDREN"]
+        self.ptFamily.field_names = ["ID", "MARRIAGE DATE", "DIVORCE DATE", "HUSBAND ID", "HUSBAND NAME", "WIFE ID", "WIFE NAME", "CHILDREN"]
 
         for key in sorted(self.familydata.keys()):
 
@@ -286,9 +266,6 @@ class Gedcom:
                 raise UniqueFirstNames("{} and {} have same first names".format(husband_firstname, wife_firstname))
             try:
                 divorce = self.userdata[husband_id]["DIVDATE"]
-                if (datetime.datetime.strptime(divorce, '%d %b %Y') > datetime.datetime.now()):
-                    raise DatesBefCurDate("{} Date after Current date".format(self.userdata[key]["NAME"]))
-
             except KeyError:
                 divorce = "NA"
 
@@ -310,29 +287,19 @@ class Gedcom:
                             raise SiblingSpacing("Sibling {} and {} have invaild spacing.".format(child, c))
 
                 if self.userdata[child]["SEX"] == "M":
-                    child_firstname, child_lastname = self.userdata[child]["NAME"].split()
+                    child_firstname, child_lastname = self.userdata[child]["NAME"].split()      
                     if child_lastname.strip("/") != husband_firstname:
-                        raise MaleLastNames(
-                            "Child {} and Father {} have different last names".format(self.userdata[child]["NAME"],
-                                                                                      husband_name))
+                        raise MaleLastNames("Child {} and Father {} have different last names".format(self.userdata[child]["NAME"], husband_name))
 
-            if (divorce != "NA") and (datetime.datetime.strptime(divorce, '%d %b %Y') > datetime.datetime.strptime(
-                    self.userdata[husband_id]["DEATDATE"], '%d %b %Y')):
+            if (divorce != "NA") and (datetime.datetime.strptime(divorce, '%d %b %Y')> datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')):
                 raise DivorceAfterDeathError("{} divorces after death".format(husband_name))
-
-            if (divorce != "NA") and (datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(divorce, '%d %b %Y')):
-                raise MarriageBeforeDivorce("{} marraige after divorce".format(name))
-
-
+            
             if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
                 if self.userdata[husband_id]["FAMC"] == self.userdata[wife_id]["FAMC"]:
                     raise SiblingMarriageError("{} and {} are siblings".format(husband_name, wife_name))
-
-            if (divorce != "NA") and not (
-                    self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "F"):
+            
+            if (divorce != "NA") and not (self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "F"):
                 raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
-
-
 
             try:
                 child = value["CHIL"]
@@ -345,13 +312,13 @@ class Gedcom:
 
 
 class DivorceAfterDeathError(Exception):
-    """Raised when husb/wife divorce after their death"""
-    pass
+   """Raised when husb/wife divorce after their death"""
+   pass
 
 
 class SiblingMarriageError(Exception):
-    """Raised when husb/wife divorce after their death"""
-    pass
+   """Raised when husb/wife divorce after their death"""
+   pass
 
 
 class AgeMoreOnefifty(Exception):
@@ -389,20 +356,9 @@ class MarriageBeforeDeath(Exception):
 class UniqueFirstNames(Exception):
     pass
 
-class MarriageBeforeDivorce(Exception):
-    pass
-
-class BirthBeforeMarraige(Exception):
-    pass
-
-class BirthBeforeDeath(Exception):
-    pass
-
-class DatesBefCurDate(Exception):
-    pass
-
 
 class TestCases(unittest.TestCase):
+
 
     def setUp(self):
         """
@@ -419,22 +375,18 @@ class TestCases(unittest.TestCase):
         self.x8 = Gedcom("proj06testsiblingspacing.ged", "n")
         self.x9 = Gedcom("proj06testmarriagebeforedeath.ged", "n")
         self.x10 = Gedcom("proj06testuniquefirstnames.ged", "n")
-        self.x11 = Gedcom("proj06testmarraigebeforedivorce.ged", "n")
-        self.x12 = Gedcom("proj06testbirthbeforemarraige.ged", "n")
-        self.x13 = Gedcom("proj06testbirthbefiredeath.ged", "n")
-        self.x14 = Gedcom("proj06testdateaftercurrentdate.ged", "n")
 
     def test_divorceAfterDeath(self):
         """
         Test if hus/wife divorces after death
         """
-        # self.assertRaises(DivorceAfterDeathError, lambda: self.x.analyze())
+        #self.assertRaises(DivorceAfterDeathError, lambda: self.x.analyze())
 
     def test_SiblingMarriage(self):
         """
         Test if siblings marry
         """
-        # self.assertRaises(SiblingMarriageError, lambda: self.x1.analyze())
+        #self.assertRaises(SiblingMarriageError, lambda: self.x1.analyze())
 
     def test_AgeLessOneFifty(self):
         """
@@ -490,36 +442,17 @@ class TestCases(unittest.TestCase):
         """
         self.assertRaises(UniqueFirstNames, lambda: self.x10.analyze())
 
-    def test_marraigebeforedivorce(self):
-        self.assertRaises(MarriageBeforeDivorce, lambda: self.x11.analyze())
-        """
-        Test if marraige date is before divorce date
-        """
-    def test_birthbeforemaaraige(self):
-        self.assertRaises(BirthBeforeMarraige, lambda: self.x12.analyze())
-        """
-        Test if birth date is before marraige date
-        """
-
-    def test_birthbeforedeath(self):
-        self.assertRaises(BirthBeforeDeath, lambda: self.x13.analyze())
-
-
-    def test_datesbefcurdateself(self):
-        self.assertRaises(DatesBefCurDate, lambda: self.x14.analyze())
-
-
-
 
 def main():
+
     file = input("Enter file name: \n")
     pretty = input("Do you want pretty table? y/n \n")
     g = Gedcom(file, pretty)
     op, userdata, familydata, error = g.analyze()
     print(error)
-    # print(op)
-    # print(userdata)
-    # print(familydata)
+    #print(op)
+    #print(userdata)
+    #print(familydata)
 
 
 if __name__ == '__main__':
