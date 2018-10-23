@@ -1,13 +1,13 @@
-Testing started at 23:22 ...
+Testing started at 12:47 ...
 D:\Python\python.exe "D:\PyCharm 2017.3.2\helpers\pycharm\_jb_unittest_runner.py" --path "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py"
 Launching unittests with arguments python -m unittest D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py in D:\MS SE\SSW-555\Sanjeev Branch\SSW-555
-ERROR: INDIVIDUAL ID11 has a repetitive ID
-ERROR: INDIVIDUAL ID12 has a repetitive ID
-ERROR: INDIVIDUAL ID13 has a repetitive ID
-ERROR: INDIVIDUAL ID03 Rajasekaran /Srinivasan/ has married before the age of 14
-ERROR: INDIVIDUAL ID10 Ashwin /Kumar/ has married before the age of 14
-ERROR: INDIVIDUAL ID07 Priyanka /Govind/ have Marriage at 1921-06-08 00:00:00 which is after their death on 1920-10-01 00:00:00
-ERROR: INDIVIDUAL ID13 Sarath /Babu/ has an age of 168 which is over 150
+ERROR: US08 INDIVIDUAL ID11 has a repetitive ID
+ERROR: US08 INDIVIDUAL ID12 has a repetitive ID
+ERROR: US08 INDIVIDUAL ID13 has a repetitive ID
+ERROR: US06 INDIVIDUAL ID03 Rajasekaran /Srinivasan/ has married before the age of 14
+ERROR: US06 INDIVIDUAL ID10 Ashwin /Kumar/ has married before the age of 14
+ERROR: US10 INDIVIDUAL ID07 Priyanka /Govind/ have Marriage at 1921-06-08 00:00:00 which is after their death on 1920-10-01 00:00:00
+ERROR: US05 INDIVIDUAL ID13 Sarath /Babu/ has an age of 168 which is over 150
 +------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
 |  ID  |           NAME           | GENDER |  BIRTH DATE | AGE | ALIVE |    DEATH    | CHILD | SPOUSE |
 +------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
@@ -27,17 +27,17 @@ ERROR: INDIVIDUAL ID13 Sarath /Babu/ has an age of 168 which is over 150
 | ID14 |     C /Rajasekaran/      |   F    | 10 MAY 2000 |  18 |  True |      NA     |   NA  |   NA   |
 | ID15 |     D /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
 +------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
-ERROR: INDIVIDUAL ID12 Keerthi and INDIVIDUAL ID13 Sarath are of same gender but have married
-ERROR: INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID11 Rajeev /Kumar/ have a Father-Child relationship but have different last names
-ERROR: INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID09 Nisha are siblings but have married
-ERROR: INDIVIDUAL ID09 Nisha /Reddy/ and INDIVIDUAL ID10 Ashwin /Kumar/ are siblings and have an invalid spacing between their births
-ERROR: INDIVIDUAL ID10 Ashwin /Kumar/ and INDIVIDUAL ID09 Nisha /Reddy/ are siblings and have an invalid spacing between their births
-ERROR: INDIVIDUAL ID08 Praveen and INDIVIDUAL ID10 Ashwin /Kumar/ have a Father-Child relationship but have different last names
-ERROR: INDIVIDUAL ID08 Praveen has divorce after death
-ERROR: FAMILY F15 more than five siblings
-ERROR: INDIVIDUAL ID04 Sanjeev does not have a unique first name
-ERROR: INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID12 Keerthi /Vasan/ have a Father-Child relationship but have different last names
-ERROR: INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID13 Sarath /Babu/ have a Father-Child relationship but have different last names
+ERROR: US01 INDIVIDUAL ID12 Keerthi and INDIVIDUAL ID13 Sarath are of same gender but have married
+ERROR: US03 INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID11 Rajeev /Kumar/ have a Father-Child relationship but have different last names
+ERROR: US07 INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID09 Nisha are siblings but have married
+ERROR: US14 INDIVIDUAL ID09 Nisha /Reddy/ and INDIVIDUAL ID10 Ashwin /Kumar/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID10 Ashwin /Kumar/ and INDIVIDUAL ID09 Nisha /Reddy/ are siblings and have an invalid spacing between their births
+ERROR: US03 INDIVIDUAL ID08 Praveen and INDIVIDUAL ID10 Ashwin /Kumar/ have a Father-Child relationship but have different last names
+ERROR: US02 INDIVIDUAL ID08 Praveen has divorce after death
+ERROR: US15 FAMILY F15 more than five siblings
+ERROR: US11 INDIVIDUAL ID04 Sanjeev does not have a unique first name
+ERROR: US03 INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID12 Keerthi /Vasan/ have a Father-Child relationship but have different last names
+ERROR: US03 INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID13 Sarath /Babu/ have a Father-Child relationship but have different last names
 +-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
 |  ID | MARRIAGE DATE | DIVORCE DATE | HUSBAND ID |       HUSBAND NAME       | WIFE ID |        WIFE NAME        |                     CHILDREN                     |
 +-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
@@ -48,7 +48,7 @@ ERROR: INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID13 Sarath /Babu/ have a Fath
 | F15 |  30 APR 1984  |      NA      |    ID03    | Rajasekaran /Srinivasan/ |   ID02  |  Shanthi /Rajasekaran/  | ['ID01', 'ID04', 'ID12', 'ID13', 'ID14', 'ID15'] |
 +-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
 
-Ran 11 tests in 0.075s
+Ran 11 tests in 0.057s
 
 OK
 
