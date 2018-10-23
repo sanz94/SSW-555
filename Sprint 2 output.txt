@@ -1,137 +1,55 @@
-Enter file name: 
-proj06testsiblingsgreaterthan5.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
-    error = self.prettyTablefunc()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 272, in prettyTablefunc
-    key))  # Check if the family has more than 5 sidlings.     Xiaopeng Yuan
-__main__.SiblingGreaterThan5: Family F15 has more than 5 siblings.
+Testing started at 23:22 ...
+D:\Python\python.exe "D:\PyCharm 2017.3.2\helpers\pycharm\_jb_unittest_runner.py" --path "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py"
+Launching unittests with arguments python -m unittest D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py in D:\MS SE\SSW-555\Sanjeev Branch\SSW-555
+ERROR: INDIVIDUAL ID11 has a repetitive ID
+ERROR: INDIVIDUAL ID12 has a repetitive ID
+ERROR: INDIVIDUAL ID13 has a repetitive ID
+ERROR: INDIVIDUAL ID03 Rajasekaran /Srinivasan/ has married before the age of 14
+ERROR: INDIVIDUAL ID10 Ashwin /Kumar/ has married before the age of 14
+ERROR: INDIVIDUAL ID07 Priyanka /Govind/ have Marriage at 1921-06-08 00:00:00 which is after their death on 1920-10-01 00:00:00
+ERROR: INDIVIDUAL ID13 Sarath /Babu/ has an age of 168 which is over 150
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+|  ID  |           NAME           | GENDER |  BIRTH DATE | AGE | ALIVE |    DEATH    | CHILD | SPOUSE |
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+| ID01 |  Sanjeev /Rajasekaran/   |   M    | 05 DEC 2018 |  0  |  True |      NA     |   NA  |   NA   |
+| ID02 |  Shanthi /Rajasekaran/   |   F    | 06 OCT 1962 |  56 |  True |      NA     |   NA  |   NA   |
+| ID03 | Rajasekaran /Srinivasan/ |   M    | 16 JUN 1985 |  33 |  True |      NA     |   NA  |   NA   |
+| ID04 |  Sanjeev /Rajasekaran/   |   F    | 10 MAY 1994 |  24 |  True |      NA     |   NA  |   NA   |
+| ID05 | Pakeeleela /Srinivasan/  |   F    | 10 JUN 1910 | 108 |  True |      NA     |   NA  |   NA   |
+| ID06 |    Srinivasan /Kumar/    |   M    | 02 MAY 1908 |  42 | False | 10 FEB 1950 |   NA  |   NA   |
+| ID07 |    Priyanka /Govind/     |   F    | 08 DEC 1880 |  40 | False | 01 OCT 1920 |   NA  |   NA   |
+| ID08 |     Praveen /Kumar/      |   M    | 12 JUL 1700 | 219 | False | 20 DEC 1919 |   NA  |   NA   |
+| ID09 |      Nisha /Reddy/       |   F    | 02 AUG 1922 |  96 |  True |      NA     |   NA  |   NA   |
+| ID10 |      Ashwin /Kumar/      |   M    | 03 AUG 1922 |  -1 | False | 20 DEC 1921 |   NA  |   NA   |
+| ID11 |      Rajeev /Kumar/      |   M    | 09 AUG 1925 |  93 |  True |      NA     |   NA  |   NA   |
+| ID12 |     Keerthi /Vasan/      |   M    | 09 AUG 1925 |  93 |  True |      NA     |   NA  |   NA   |
+| ID13 |      Sarath /Babu/       |   M    | 09 AUG 1850 | 168 |  True |      NA     |   NA  |   NA   |
+| ID14 |     C /Rajasekaran/      |   F    | 10 MAY 2000 |  18 |  True |      NA     |   NA  |   NA   |
+| ID15 |     D /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
++------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+ERROR: INDIVIDUAL ID12 Keerthi and INDIVIDUAL ID13 Sarath are of same gender but have married
+ERROR: INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID11 Rajeev /Kumar/ have a Father-Child relationship but have different last names
+ERROR: INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID09 Nisha are siblings but have married
+ERROR: INDIVIDUAL ID09 Nisha /Reddy/ and INDIVIDUAL ID10 Ashwin /Kumar/ are siblings and have an invalid spacing between their births
+ERROR: INDIVIDUAL ID10 Ashwin /Kumar/ and INDIVIDUAL ID09 Nisha /Reddy/ are siblings and have an invalid spacing between their births
+ERROR: INDIVIDUAL ID08 Praveen and INDIVIDUAL ID10 Ashwin /Kumar/ have a Father-Child relationship but have different last names
+ERROR: INDIVIDUAL ID08 Praveen has divorce after death
+ERROR: FAMILY F15 more than five siblings
+ERROR: INDIVIDUAL ID04 Sanjeev does not have a unique first name
+ERROR: INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID12 Keerthi /Vasan/ have a Father-Child relationship but have different last names
+ERROR: INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID13 Sarath /Babu/ have a Father-Child relationship but have different last names
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
+|  ID | MARRIAGE DATE | DIVORCE DATE | HUSBAND ID |       HUSBAND NAME       | WIFE ID |        WIFE NAME        |                     CHILDREN                     |
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
+| F10 |  08 JUN 1945  |      NA      |    ID12    |     Keerthi /Vasan/      |   ID13  |      Sarath /Babu/      |                        []                        |
+| F12 |  08 JUN 1912  |      NA      |    ID10    |      Ashwin /Kumar/      |   ID09  |      Nisha /Reddy/      |                     ['ID11']                     |
+| F13 |  18 NOV 1905  | 07 APR 1882  |    ID08    |     Praveen /Kumar/      |   ID07  |    Priyanka /Govind/    |                 ['ID09', 'ID10']                 |
+| F14 |  30 MAR 1940  |      NA      |    ID06    |    Srinivasan /Kumar/    |   ID05  | Pakeeleela /Srinivasan/ |                     ['ID03']                     |
+| F15 |  30 APR 1984  |      NA      |    ID03    | Rajasekaran /Srinivasan/ |   ID02  |  Shanthi /Rajasekaran/  | ['ID01', 'ID04', 'ID12', 'ID13', 'ID14', 'ID15'] |
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
 
+Ran 11 tests in 0.075s
 
-Enter file name: 
-proj06testsiblingspacing.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
-    error = self.prettyTablefunc()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 310, in prettyTablefunc
-    raise SiblingSpacing("Sibling {} and {} have invaild spacing.".format(child, c))
-__main__.SiblingSpacing: Sibling ID01 and ID04 have invaild spacing.
+OK
 
-Enter file name: 
-proj06testmarriagebeforedeath.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
-    error = self.prettyTablefunc()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 240, in prettyTablefunc
-    raise MarriageBeforeDeath("{} has Marriage before death".format(name))
-__main__.MarriageBeforeDeath: Priyanka /Govind/ has Marriage before death
-
-
-Enter file name: 
-proj06testuniquefirstnames.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
-    error = self.prettyTablefunc()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 304, in prettyTablefunc
-    raise UniqueFirstNames("{} does not have unique first name".format(child_firstname))
-__main__.UniqueFirstNames: Sanjeev does not have unique first name
-
-Enter file name: 
-proj06testmarraigebeforedivorce.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
-    error = self.prettyTablefunc()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 324, in prettyTablefunc
-    raise MarriageBeforeDivorce("{} marraige after divorce".format(name))
-__main__.MarriageBeforeDivorce: Ashok /Ashwin/ marraige after divorce
-
-
-Enter file name: 
-proj06testbirthbeforemarraige.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
-    error = self.prettyTablefunc()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 246, in prettyTablefunc
-    raise BirthBeforeMarraige("{} has birth  after  marraige".format(name))
-__main__.BirthBeforeMarraige: Shanthi /Rajasekaran/ has birth  after  marraige
-
-
-Enter file name: 
-proj06testbirthbefiredeath.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 193, in calc_data
-    error = self.prettyTablefunc()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 250, in prettyTablefunc
-    raise BirthBeforeDeath("{} has birth date before born date".format(name))
-__main__.BirthBeforeDeath: Srinivasan /Kumar/ has birth date before born date
-
-Enter file name: 
-proj06testdateaftercurrentdate.ged
-Do you want pretty table? y/n 
-n
-Traceback (most recent call last):
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 527, in <module>
-    main()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 518, in main
-    op, userdata, familydata, error = g.analyze()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 43, in analyze
-    error = self.calc_data()
-  File "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py", line 158, in calc_data
-    raise DatesBefCurDate("{} Marriage before age 14".format(self.userdata[key]["NAME"]))
-__main__.DatesBefCurDate: Sanjeev /Rajasekaran/ Marriage before age 14
+Process finished with exit code 0
