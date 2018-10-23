@@ -28,6 +28,7 @@ class Gedcom:
         self.curr_id = ""
         self.ptUsers = PrettyTable()
         self.ptFamily = PrettyTable()
+        self.errorlog = defaultdict(int)
         if pretty.lower() == "y":
             self.bool_to_print = True
         elif pretty.lower() == "n":
@@ -42,8 +43,8 @@ class Gedcom:
 
         if self.file.endswith("ged"):
             self.check_file(self.open_file())
-            error = self.calc_data()
-            return self.output, self.userdata, self.familydata, error
+            error, errorlog = self.calc_data()
+            return error, errorlog
         else:
             return "Can only analyze gedcom files. Enter a file ending with .ged"
 
@@ -112,7 +113,8 @@ class Gedcom:
     def append2userdata(self, split_words):
 
         if self.userdata.__contains__(split_words[1]):
-            raise RepetitiveID("Repetitive individual ID {}".format(split_words[1]))  # Check unipue individual ID. Xiaopeng Yuan
+            print("ERROR: INDIVIDUAL {} has a repetitive ID".format(split_words[1]))
+            self.errorlog["RepetitiveID"] += 1
 
         self.userdata[split_words[1]] = {}
         self.curr_id = split_words[1]
@@ -121,7 +123,9 @@ class Gedcom:
     def append2familydata(self, split_words):
 
         if self.familydata.__contains__(split_words[1]):
-            raise RepetitiveID("Repetitive family ID {}".format(split_words[1]))  # Check unipue family ID. Xiaopeng Yuan
+            print("ERROR: FAMILY {} has a repetitive ID".format(split_words[1]))
+            self.errorlog["RepetitiveID"] += 1
+
         self.familydata[split_words[1]] = {}
         self.familydata[split_words[1]]["CHIL"] = []
         self.curr_id = split_words[1]
@@ -142,8 +146,8 @@ class Gedcom:
             self.userdata[husband][self.tempdata + split_words[1]] = split_words[2]
             self.userdata[wife][self.tempdata + split_words[1]] = split_words[2]
 
-    def donothing(self, split_words):
-        return
+    def donothing(self, nothing):
+        pass
 
     def calc_data(self):
         for key in self.userdata:
@@ -180,7 +184,9 @@ class Gedcom:
                 marriageday = "NA"
                 
             if (marriageday != "NA" and (int(marriageday.split()[2]) - int(birthday.split()[2])) < 14):
-                raise MarriageBefore14("{} Marriage before age 14".format(self.userdata[key]["NAME"]))
+                print("ERROR: INDIVIDUAL {} {} has married before the age of 14".format(key, self.userdata[key]["NAME"]))
+                self.errorlog["MarriageBefore14"] += 1
+
 
 
 
@@ -188,7 +194,7 @@ class Gedcom:
         error = self.prettyTablefunc()
         if error is None:
             error = "No errors found"
-        return error
+        return error, self.errorlog
 
     def prettyTablefunc(self):
 
@@ -199,8 +205,6 @@ class Gedcom:
             name = value["NAME"]
             gender = value["SEX"]
             birthdate = value["BIRTDATE"]
-            if birthdate == "08 DEC 1880":
-                pass
             age = value["AGE"]
             alive = value["ALIVE"]
             single_list = []
@@ -227,10 +231,12 @@ class Gedcom:
                 marriage = "NA"
 
             if death != "NA" and datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(death, '%d %b %Y'):
-                raise MarriageBeforeDeath("{} has Marriage before death".format(name))
+                print("ERROR: INDIVIDUAL {} {} have Marriage at {} which is after their death on {}".format(key, name, datetime.datetime.strptime(marriage, '%d %b %Y'), datetime.datetime.strptime(death, '%d %b %Y')))
+                self.errorlog["MarriageBeforeDeath"] += 1
 
             if(death == "NA" and age > 150):
-                raise AgeMoreOnefifty("{} Age is more than 150".format(name))
+                print("ERROR: INDIVIDUAL {} {} has an age of {} which is over 150".format(key, name,  age ))
+                self.errorlog["AgeLessOneFifty"] += 1
 
             self.ptUsers.add_row([key, name, gender, birthdate, age, alive, death, child, spouse])
 
@@ -248,8 +254,8 @@ class Gedcom:
             husband_id = value["HUSB"]
             children = value["CHIL"]
             if len(children) > 5:
-                raise SiblingGreaterThan5("Family {} has more than 5 siblings.".format(
-                    key))  # Check if the family has more than 5 sidlings.     Xiaopeng Yuan
+                print("ERROR: FAMILY {} more than five siblings".format(key))
+                self.errorlog["SiblingGreaterThan5"] += 1
             husband_name = self.userdata[husband_id]["NAME"]
             husband_firstname, husband_lastname = husband_name.split()
             uniquenameslist.append(husband_firstname)
@@ -263,11 +269,16 @@ class Gedcom:
             if wife_firstname not in uniquenameslist:
                 uniquenameslist.append(wife_firstname)
             else:
-                raise UniqueFirstNames("{} and {} have same first names".format(husband_firstname, wife_firstname))
+                print("ERROR: INDIVIDUAL {} {} and INDIVIDUAL {} {} have same first name".format(husband_id, husband_firstname, wife_id, wife_firstname))
+                self.errorlog["UniqueFirstNames"] += 1
             try:
                 divorce = self.userdata[husband_id]["DIVDATE"]
+                div_husband = self.userdata[husband_id]["DIVDATE"]
+                div_wife = self.userdata[wife_id]["DIVDATE"]
             except KeyError:
                 divorce = "NA"
+                div_husband = "NA"
+                div_wife = "NA"
 
             for child in children:
 
@@ -275,31 +286,46 @@ class Gedcom:
                 child_name = self.userdata[child]["NAME"]
                 child_firstname, child_lastname = child_name.split()
 
+                if child_firstname == "Ashwin":
+                    pass
                 if child_firstname not in uniquenameslist:
                     uniquenameslist.append(child_firstname)
                 else:
-                    raise UniqueFirstNames("{} does not have unique first name".format(child_firstname))
+                    print("ERROR: INDIVIDUAL {} {} does not have a unique first name".format(child, child_firstname))
+                    self.errorlog["UniqueFirstNames"] += 1
 
                 for c in children:
                     if c != child:
                         c_birthday = datetime.datetime.strptime(self.userdata[c]["BIRTDATE"], '%d %b %Y')
-                        if abs(birthday - c_birthday).days < 275 and abs(birthday - c_birthday).days > 2:
-                            raise SiblingSpacing("Sibling {} and {} have invaild spacing.".format(child, c))
+                        if abs(birthday - c_birthday).days < 275:
+                            print("ERROR: INDIVIDUAL {} {} and INDIVIDUAL {} {} are siblings and have an invalid spacing between their births".format(child, self.userdata[child]["NAME"], c, self.userdata[c]["NAME"]))
+                            self.errorlog["SiblingSpacing"] += 1
 
                 if self.userdata[child]["SEX"] == "M":
                     child_firstname, child_lastname = self.userdata[child]["NAME"].split()      
                     if child_lastname.strip("/") != husband_firstname:
-                        raise MaleLastNames("Child {} and Father {} have different last names".format(self.userdata[child]["NAME"], husband_name))
+                        print("ERROR: INDIVIDUAL {} {} and INDIVIDUAL {} {} have a Father-Child relationship but have different last names".format(
+                                husband_id, husband_firstname, child, self.userdata[child]["NAME"]))
+                        self.errorlog["MaleLastNames"] += 1
 
-            if (divorce != "NA") and (datetime.datetime.strptime(divorce, '%d %b %Y')> datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')):
-                raise DivorceAfterDeathError("{} divorces after death".format(husband_name))
+            if (divorce != "NA") and (div_husband != "NA") and (div_wife != "NA"):
+                if (datetime.datetime.strptime(div_husband, '%d %b %Y') > datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')) or (datetime.datetime.strptime(div_wife, '%d %b %Y') > datetime.datetime.strptime(self.userdata[wife_id]["DEATDATE"], '%d %b %Y')):
+                    print(
+                        "ERROR: INDIVIDUAL {} {} has divorce after death".format(husband_id, husband_firstname))
+                    self.errorlog["DivorceAfterDeath"] += 1
             
             if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
                 if self.userdata[husband_id]["FAMC"] == self.userdata[wife_id]["FAMC"]:
-                    raise SiblingMarriageError("{} and {} are siblings".format(husband_name, wife_name))
+                    print(
+                        "ERROR: INDIVIDUAL {} {} and INDIVIDUAL {} {} are siblings but have married".format(
+                            husband_id, husband_firstname, wife_id, wife_firstname))
+                    self.errorlog["SiblingMarriageError"] += 1
             
-            if (divorce != "NA") and not (self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "F"):
-                raise GenderError("{} and {} are of same gender".format(husband_name, wife_name))
+            if (self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "M"):
+                print(
+                    "ERROR: INDIVIDUAL {} {} and INDIVIDUAL {} {} are of same gender but have married".format(
+                            husband_id, husband_firstname, wife_id, wife_firstname))
+                self.errorlog["ProperGender"] += 1
 
             try:
                 child = value["CHIL"]
@@ -311,136 +337,90 @@ class Gedcom:
             print(self.ptFamily)
 
 
-class DivorceAfterDeathError(Exception):
-   """Raised when husb/wife divorce after their death"""
-   pass
-
-
-class SiblingMarriageError(Exception):
-   """Raised when husb/wife divorce after their death"""
-   pass
-
-
-class AgeMoreOnefifty(Exception):
-    pass
-
-
-class MarriageBefore14(Exception):
-    pass
-
-
-class GenderError(Exception):
-    pass
-
-
-class RepetitiveID(Exception):
-    pass
-
-
-class MaleLastNames(Exception):
-    pass
-
-
-class SiblingGreaterThan5(Exception):
-    pass
-
-
-class SiblingSpacing(Exception):
-    pass
-
-
-class MarriageBeforeDeath(Exception):
-    pass
-
-
-class UniqueFirstNames(Exception):
-    pass
-
-
 class TestCases(unittest.TestCase):
 
-
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         """
         Set up objects with filenames
         """
-        self.x = Gedcom("proj03testDivorceAfterDeath.ged", "n")
-        self.x1 = Gedcom("proj04testsiblingsmarriage.ged", "n")
-        self.x2 = Gedcom("proj03testAgeLessOneFifty.ged", "n")
-        self.x3 = Gedcom("proj04testCorrectGender.ged", "n")
-        self.x4 = Gedcom("proj04testMarriagebefore14.ged", "n")
-        self.x5 = Gedcom("proj04testUniqueID.ged", "n")
-        self.x6 = Gedcom("proj04testmalelastnames.ged", "n")
-        self.x7 = Gedcom("proj06testsiblingsgreaterthan5.ged", "n")
-        self.x8 = Gedcom("proj06testsiblingspacing.ged", "n")
-        self.x9 = Gedcom("proj06testmarriagebeforedeath.ged", "n")
-        self.x10 = Gedcom("proj06testuniquefirstnames.ged", "n")
+        cls.x = Gedcom("SprintTestFile.ged", "y")
+        cls.error, cls.errorlog = cls.x.analyze()
+
+    # def setUp(self):
+    #     """
+    #     Set up objects with filenames
+    #     """
+    #     self.x = Gedcom("SprintTestFile.ged", "y")
+    #     self.error, self.errorlog = self.x.analyze()
+    #     print(self.errorlog)
+
 
     def test_divorceAfterDeath(self):
         """
         Test if hus/wife divorces after death
         """
-        #self.assertRaises(DivorceAfterDeathError, lambda: self.x.analyze())
+        self.assertNotEqual(self.errorlog["DivorceAfterDeath"], 0)
 
     def test_SiblingMarriage(self):
         """
         Test if siblings marry
         """
-        #self.assertRaises(SiblingMarriageError, lambda: self.x1.analyze())
+        self.assertNotEqual(self.errorlog["SiblingMarriageError"], 0)
 
     def test_AgeLessOneFifty(self):
         """
         Test if siblings marry
         """
-        self.assertRaises(AgeMoreOnefifty, lambda: self.x2.analyze())
+        self.assertNotEqual(self.errorlog["AgeLessOneFifty"], 0)
 
     def test_ProperGender(self):
         """
         Test if siblings marry
         """
-        self.assertRaises(GenderError, lambda: self.x3.analyze())
+        self.assertNotEqual(self.errorlog["ProperGender"], 0)
 
     def test_MarriageBefore14(self):
         """
         Test if marriage before 14
         """
-        self.assertRaises(MarriageBefore14, lambda: self.x4.analyze())
+        self.assertNotEqual(self.errorlog["MarriageBefore14"], 0)
 
     def test_RepetitiveID(self):
         """
         Test if ID is unique
         """
-        self.assertRaises(RepetitiveID, lambda: self.x5.analyze())
+        self.assertNotEqual(self.errorlog["RepetitiveID"], 0)
 
     def test_malelastnames(self):
         """
         Test if male children have same last name in family
         """
-        self.assertRaises(MaleLastNames, lambda: self.x6.analyze())
+        self.assertNotEqual(self.errorlog["MaleLastNames"], 0)
 
     def test_siblingsgreaterthan5(self):
         """
         Test if male children have same last name in family
         """
-        self.assertRaises(SiblingGreaterThan5, lambda: self.x7.analyze())
+        self.assertNotEqual(self.errorlog["SiblingGreaterThan5"], 0)
 
     def test_siblingspacing(self):
         """
         Test if male children have same last name in family
         """
-        self.assertRaises(SiblingSpacing, lambda: self.x8.analyze())
+        self.assertNotEqual(self.errorlog["SiblingSpacing"], 0)
 
     def test_marriagebeforedeath(self):
         """
         Test if male children have same last name in family
         """
-        self.assertRaises(MarriageBeforeDeath, lambda: self.x9.analyze())
+        self.assertNotEqual(self.errorlog["MarriageBeforeDeath"], 0)
 
     def test_uniquefirstnames(self):
         """
         Test if male children have same last name in family
         """
-        self.assertRaises(UniqueFirstNames, lambda: self.x10.analyze())
+        self.assertNotEqual(self.errorlog["UniqueFirstNames"], 0)
 
 
 def main():
@@ -450,9 +430,6 @@ def main():
     g = Gedcom(file, pretty)
     op, userdata, familydata, error = g.analyze()
     print(error)
-    #print(op)
-    #print(userdata)
-    #print(familydata)
 
 
 if __name__ == '__main__':
