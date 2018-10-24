@@ -261,7 +261,7 @@ class Gedcom:
                 self.errorlog["AgeLessOneFifty"] += 1
 
             if(marriage != "NA"):
-                if (datetime.datetime.strptime(birthdate, '%d %b %Y') < datetime.datetime.strptime(marriage, '%d %b %Y')):
+                if (datetime.datetime.strptime(birthdate, '%d %b %Y') > datetime.datetime.strptime(marriage, '%d %b %Y')):
                     print(
                         "ERROR: US13 INDIVIDUAL {} {} has Marriage Before Birth".format(key, name))
                     self.errorlog["MarriageBeforeBirth"] += 1
@@ -316,20 +316,25 @@ class Gedcom:
                 child_name = self.userdata[child]["NAME"]
                 child_firstname, child_lastname = child_name.split()
 
-                if child_firstname == "Ashwin":
-                    pass
                 if child_firstname not in uniquenameslist:
                     uniquenameslist.append(child_firstname)
                 else:
                     print("ERROR: US11 INDIVIDUAL {} {} does not have a unique first name".format(child, child_firstname))
                     self.errorlog["UniqueFirstNames"] += 1
 
+                multiple_siblings_birth_counter = 0
                 for c in children:
                     if c != child:
                         c_birthday = datetime.datetime.strptime(self.userdata[c]["BIRTDATE"], '%d %b %Y')
-                        if abs(birthday - c_birthday).days < 275:
+                        if abs(birthday - c_birthday).days < 250 or abs(birthday - c_birthday).days > 2:
                             print("ERROR: US14 INDIVIDUAL {} {} and INDIVIDUAL {} {} are siblings and have an invalid spacing between their births".format(child, self.userdata[child]["NAME"], c, self.userdata[c]["NAME"]))
                             self.errorlog["SiblingSpacing"] += 1
+                        if abs(birthday - c_birthday).days < 2:
+                            multiple_siblings_birth_counter += 1
+                        if multiple_siblings_birth_counter > 5:
+                            print(
+                                "ERROR: US15 Family {} has more than 5 siblings born less than 2 days apart".format(key))
+                            self.errorlog["MultipleSiblings"] += 1
 
                 if self.userdata[child]["SEX"] == "M":
                     child_firstname, child_lastname = self.userdata[child]["NAME"].split()      
@@ -443,9 +448,9 @@ class TestCases(unittest.TestCase):
 
     def test_siblingspacing(self):
         """
-        Test if male children have same last name in family
+        Test if family has less than 5 children born in under 2 days
         """
-        self.assertNotEqual(self.errorlog["SiblingSpacing"], 0)
+        self.assertNotEqual(self.errorlog["MultipleSiblings"], 0)
 
     def test_marriagebeforedeath(self):
         """
