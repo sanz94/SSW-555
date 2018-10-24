@@ -1,13 +1,23 @@
-Testing started at 12:47 ...
+Testing started at 01:54 ...
 D:\Python\python.exe "D:\PyCharm 2017.3.2\helpers\pycharm\_jb_unittest_runner.py" --path "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py"
 Launching unittests with arguments python -m unittest D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py in D:\MS SE\SSW-555\Sanjeev Branch\SSW-555
 ERROR: US08 INDIVIDUAL ID11 has a repetitive ID
 ERROR: US08 INDIVIDUAL ID12 has a repetitive ID
 ERROR: US08 INDIVIDUAL ID13 has a repetitive ID
+ERROR: US17 INDIVIDUAL () ID01 has Birthdate Date before Current date
 ERROR: US06 INDIVIDUAL ID03 Rajasekaran /Srinivasan/ has married before the age of 14
 ERROR: US06 INDIVIDUAL ID10 Ashwin /Kumar/ has married before the age of 14
+ERROR: US13 INDIVIDUAL ID02 Shanthi /Rajasekaran/ has Marriage Before Birth
+ERROR: US13 INDIVIDUAL ID05 Pakeeleela /Srinivasan/ has Marriage Before Birth
+ERROR: US13 INDIVIDUAL ID06 Srinivasan /Kumar/ has Marriage Before Birth
 ERROR: US10 INDIVIDUAL ID07 Priyanka /Govind/ have Marriage at 1921-06-08 00:00:00 which is after their death on 1920-10-01 00:00:00
+ERROR: US13 INDIVIDUAL ID07 Priyanka /Govind/ has Marriage Before Birth
+ERROR: US13 INDIVIDUAL ID08 Praveen /Kumar/ has Marriage Before Birth
+ERROR: US13 INDIVIDUAL ID09 Nisha /Reddy/ has Marriage Before Birth
+ERROR: US13 INDIVIDUAL ID11 Rajeev /Kumar/ has Marriage Before Birth
+ERROR: US13 INDIVIDUAL ID12 Keerthi /Vasan/ has Marriage Before Birth
 ERROR: US05 INDIVIDUAL ID13 Sarath /Babu/ has an age of 168 which is over 150
+ERROR: US13 INDIVIDUAL ID13 Sarath /Babu/ has Marriage Before Birth
 +------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
 |  ID  |           NAME           | GENDER |  BIRTH DATE | AGE | ALIVE |    DEATH    | CHILD | SPOUSE |
 +------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
@@ -26,29 +36,154 @@ ERROR: US05 INDIVIDUAL ID13 Sarath /Babu/ has an age of 168 which is over 150
 | ID13 |      Sarath /Babu/       |   M    | 09 AUG 1850 | 168 |  True |      NA     |   NA  |   NA   |
 | ID14 |     C /Rajasekaran/      |   F    | 10 MAY 2000 |  18 |  True |      NA     |   NA  |   NA   |
 | ID15 |     D /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID16 |     E /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID17 |     F /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID18 |     G /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID19 |     H /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID20 |     I /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID21 |     J /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID22 |     K /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID23 |     L /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID24 |     M /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID25 |     N /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID26 |     O /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
+| ID27 |     P /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |   NA  |   NA   |
 +------+--------------------------+--------+-------------+-----+-------+-------------+-------+--------+
+DISPLAY US04 LIST OF SINGLES: ['Sanjeev /Rajasekaran/', 'Sanjeev /Rajasekaran/', 'C /Rajasekaran/', 'D /Rajasekaran/', 'E /Rajasekaran/', 'F /Rajasekaran/', 'G /Rajasekaran/', 'H /Rajasekaran/', 'I /Rajasekaran/', 'J /Rajasekaran/', 'K /Rajasekaran/', 'L /Rajasekaran/', 'M /Rajasekaran/', 'N /Rajasekaran/', 'O /Rajasekaran/', 'P /Rajasekaran/']
+DISPLAY US16 LIST OF MARRIED PEOPLE: ['Shanthi /Rajasekaran/', 'Rajasekaran /Srinivasan/', 'Pakeeleela /Srinivasan/', 'Srinivasan /Kumar/', 'Priyanka /Govind/', 'Praveen /Kumar/', 'Nisha /Reddy/', 'Ashwin /Kumar/', 'Rajeev /Kumar/', 'Keerthi /Vasan/', 'Sarath /Babu/']
 ERROR: US01 INDIVIDUAL ID12 Keerthi and INDIVIDUAL ID13 Sarath are of same gender but have married
 ERROR: US03 INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID11 Rajeev /Kumar/ have a Father-Child relationship but have different last names
 ERROR: US07 INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID09 Nisha are siblings but have married
 ERROR: US14 INDIVIDUAL ID09 Nisha /Reddy/ and INDIVIDUAL ID10 Ashwin /Kumar/ are siblings and have an invalid spacing between their births
 ERROR: US14 INDIVIDUAL ID10 Ashwin /Kumar/ and INDIVIDUAL ID09 Nisha /Reddy/ are siblings and have an invalid spacing between their births
 ERROR: US03 INDIVIDUAL ID08 Praveen and INDIVIDUAL ID10 Ashwin /Kumar/ have a Father-Child relationship but have different last names
+ERROR: US12 INDIVIDUAL ID08 Praveen has Marriage Before Divorce
 ERROR: US02 INDIVIDUAL ID08 Praveen has divorce after death
-ERROR: US15 FAMILY F15 more than five siblings
+ERROR: US09 FAMILY F15 more than 15 siblings
 ERROR: US11 INDIVIDUAL ID04 Sanjeev does not have a unique first name
 ERROR: US03 INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID12 Keerthi /Vasan/ have a Father-Child relationship but have different last names
 ERROR: US03 INDIVIDUAL ID03 Rajasekaran and INDIVIDUAL ID13 Sarath /Babu/ have a Father-Child relationship but have different last names
-+-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
-|  ID | MARRIAGE DATE | DIVORCE DATE | HUSBAND ID |       HUSBAND NAME       | WIFE ID |        WIFE NAME        |                     CHILDREN                     |
-+-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
-| F10 |  08 JUN 1945  |      NA      |    ID12    |     Keerthi /Vasan/      |   ID13  |      Sarath /Babu/      |                        []                        |
-| F12 |  08 JUN 1912  |      NA      |    ID10    |      Ashwin /Kumar/      |   ID09  |      Nisha /Reddy/      |                     ['ID11']                     |
-| F13 |  18 NOV 1905  | 07 APR 1882  |    ID08    |     Praveen /Kumar/      |   ID07  |    Priyanka /Govind/    |                 ['ID09', 'ID10']                 |
-| F14 |  30 MAR 1940  |      NA      |    ID06    |    Srinivasan /Kumar/    |   ID05  | Pakeeleela /Srinivasan/ |                     ['ID03']                     |
-| F15 |  30 APR 1984  |      NA      |    ID03    | Rajasekaran /Srinivasan/ |   ID02  |  Shanthi /Rajasekaran/  | ['ID01', 'ID04', 'ID12', 'ID13', 'ID14', 'ID15'] |
-+-----+---------------+--------------+------------+--------------------------+---------+-------------------------+--------------------------------------------------+
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+|  ID | MARRIAGE DATE | DIVORCE DATE | HUSBAND ID |       HUSBAND NAME       | WIFE ID |        WIFE NAME        |                                                             CHILDREN                                                             |
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| F10 |  08 JUN 1945  |      NA      |    ID12    |     Keerthi /Vasan/      |   ID13  |      Sarath /Babu/      |                                                                []                                                                |
+| F12 |  08 JUN 1912  |      NA      |    ID10    |      Ashwin /Kumar/      |   ID09  |      Nisha /Reddy/      |                                                             ['ID11']                                                             |
+| F13 |  18 NOV 1905  | 07 APR 1882  |    ID08    |     Praveen /Kumar/      |   ID07  |    Priyanka /Govind/    |                                                         ['ID09', 'ID10']                                                         |
+| F14 |  30 MAR 1940  |      NA      |    ID06    |    Srinivasan /Kumar/    |   ID05  | Pakeeleela /Srinivasan/ |                                                             ['ID03']                                                             |
+| F15 |  30 APR 1984  |      NA      |    ID03    | Rajasekaran /Srinivasan/ |   ID02  |  Shanthi /Rajasekaran/  | ['ID01', 'ID04', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID19', 'ID20', 'ID21', 'ID22', 'ID23', 'ID24', 'ID25', 'ID27'] |
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------+
 
-Ran 11 tests in 0.057s
+Ran 14 tests in 0.098s
 
 OK
 
