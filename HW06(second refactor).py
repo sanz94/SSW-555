@@ -116,6 +116,7 @@ class Gedcom:
             print("ERROR: US08 INDIVIDUAL {} has a repetitive ID".format(split_words[1]))
             self.errorlog["RepetitiveID"] += 1
 
+
         self.userdata[split_words[1]] = {}
         self.curr_id = split_words[1]
 
@@ -139,6 +140,17 @@ class Gedcom:
     def appendDates(self, split_words):
 
         if self.curr_id in self.userdata:
+            if self.curr_id == "ID32":
+                print("tst")
+
+            if self.tempdata + split_words[1] == "MARRDATE":
+                if self.userdata[self.curr_id].__contains__("MARRDATE"):
+                    try:
+                        self.userdata[self.curr_id]["DIVDATE"]
+                    except KeyError:
+                        print("ERROR: US11 INDIVIDUAL {} HAS DONE BIGAMY".format(self.curr_id))
+                        self.errorlog["Bigamy"] += 1
+
             self.userdata[self.curr_id][self.tempdata + split_words[1]] = split_words[2]
         elif split_words[1] == "DATE":
             husband = self.familydata[self.curr_id]["HUSB"]
@@ -157,7 +169,7 @@ class Gedcom:
                 birthday = self.userdata[key]["BIRTDATE"]
                 born_date = datetime.datetime.strptime(birthday, '%d %b %Y')
                 if (born_date) > datetime.datetime.now():
-                    print("ERROR: US17 INDIVIDUAL () {} has Birthdate Date before Current date".format(key, self.userdata[key]["NAME"]))
+                    print("ERROR: US01 INDIVIDUAL () {} has Birthdate Date before Current date".format(key, self.userdata[key]["NAME"]))
                     self.errorlog["DateAfterCurrent"] += 1
             except ValueError:
                 print("Invalid date found")
@@ -173,6 +185,9 @@ class Gedcom:
                 if (death_date) > datetime.datetime.now():
                     print("ERROR: US17 INDIVIDUAL () {} has Death date Date before Current date".format(key, self.userdata[key]["NAME"]))
                     self.errorlog["DateAfterCurrent"] += 1
+                if (death_date) > born_date:
+                    print("ERROR: US03 INDIVIDUAL () {} has Death date Date before Birth date".format(key, self.userdata[key]["NAME"]))
+                    self.errorlog["DeathBeforeBirth"] += 1
                 alive_status = False
             except KeyError:
                 alive_status = True
@@ -189,7 +204,7 @@ class Gedcom:
                 marriageday = "NA"
                 
             if (marriageday != "NA" and (int(marriageday.split()[2]) - int(birthday.split()[2])) < 14):
-                print("ERROR: US06 INDIVIDUAL {} {} has married before the age of 14".format(key, self.userdata[key]["NAME"]))
+                print("ERROR: US10 INDIVIDUAL {} {} has married before the age of 14".format(key, self.userdata[key]["NAME"]))
                 self.errorlog["MarriageBefore14"] += 1
 
 
@@ -253,11 +268,11 @@ class Gedcom:
                     self.errorlog["DateAfterCurrent"] += 1
 
             if death != "NA" and datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(death, '%d %b %Y'):
-                print("ERROR: US10 INDIVIDUAL {} {} have Marriage at {} which is after their death on {}".format(key, name, datetime.datetime.strptime(marriage, '%d %b %Y'), datetime.datetime.strptime(death, '%d %b %Y')))
+                print("ERROR: US05 INDIVIDUAL {} {} have Marriage at {} which is after their death on {}".format(key, name, datetime.datetime.strptime(marriage, '%d %b %Y'), datetime.datetime.strptime(death, '%d %b %Y')))
                 self.errorlog["MarriageBeforeDeath"] += 1
 
             if(death == "NA" and age > 150):
-                print("ERROR: US05 INDIVIDUAL {} {} has an age of {} which is over 150".format(key, name,  age ))
+                print("ERROR: US07 INDIVIDUAL {} {} has an age of {} which is over 150".format(key, name,  age ))
                 self.errorlog["AgeLessOneFifty"] += 1
 
             if(marriage != "NA"):
@@ -282,9 +297,16 @@ class Gedcom:
             value = self.familydata[key]
 
             husband_id = value["HUSB"]
+            wife_id = value["WIFE"]
             children = value["CHIL"]
+
+
+
+            if abs(datetime.datetime.strptime(self.userdata[husband_id]["BIRTDATE"], '%d %b %Y') - datetime.datetime.strptime(self.userdata[wife_id]["BIRTDATE"], '%d %b %Y')).days > 5475:
+                print("ERROR: US17 FAMILY {} has marriage between descendants and their children".format(key))
+                self.errorlog["DescendantChildrenMarriage"] += 1
             if len(children) > 15:
-                print("ERROR: US09 FAMILY {} more than 15 siblings".format(key))
+                print("ERROR: US15 FAMILY {} more than 15 siblings".format(key))
                 self.errorlog["SiblingGreaterThan15"] += 1
             husband_name = self.userdata[husband_id]["NAME"]
             husband_firstname, husband_lastname = husband_name.split()
@@ -293,7 +315,7 @@ class Gedcom:
                 marriage = self.userdata[husband_id]["MARRDATE"]
             except KeyError:
                 return "No Marriage date found"
-            wife_id = value["WIFE"]
+
             wife_name = self.userdata[wife_id]["NAME"]
             wife_firstname, wife_lastname = wife_name.split()
             if wife_firstname not in uniquenameslist:
@@ -316,6 +338,16 @@ class Gedcom:
                 child_name = self.userdata[child]["NAME"]
                 child_firstname, child_lastname = child_name.split()
 
+                if abs(datetime.datetime.strptime(self.userdata[husband_id]["BIRTDATE"], '%d %b %Y') - datetime.datetime.strptime(self.userdata[child]["BIRTDATE"], '%d %b %Y')).days > 29200:
+                    print(
+                        "ERROR: FAMILY {} Parents are too old".format(key))
+                    self.errorlog["ParentsTooOld"] += 1
+
+                if abs(datetime.datetime.strptime(self.userdata[wife_id]["BIRTDATE"], '%d %b %Y') - datetime.datetime.strptime(self.userdata[child]["BIRTDATE"], '%d %b %Y')).days > 21900:
+                    print(
+                        "ERROR: FAMILY {} Parents are too old".format(key))
+                    self.errorlog["ParentsTooOld"] += 1
+
                 if child_firstname not in uniquenameslist:
                     uniquenameslist.append(child_firstname)
                 else:
@@ -326,40 +358,50 @@ class Gedcom:
                 for c in children:
                     if c != child:
                         c_birthday = datetime.datetime.strptime(self.userdata[c]["BIRTDATE"], '%d %b %Y')
+                        if c_birthday > datetime.datetime.strptime(self.userdata[husband_id]["MARRDATE"], '%d %b %Y'):
+                            print("ERROR: US08 Family {} has Child {} who was born before parents marriage".format(key, c))
+                            self.errorlog["ChildBirthBeforeParentsMarriage"] += 1
+                        try:
+                            if c_birthday > datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y'):
+                                print("ERROR: US09 Family {} has Child {} who was born after parents Death".format(key,
+                                                                                                                       c))
+                                self.errorlog["DeathBeforeBirthParents"] += 1
+                        except KeyError:
+                            pass
                         if abs(birthday - c_birthday).days < 250 or abs(birthday - c_birthday).days > 2:
-                            print("ERROR: US14 INDIVIDUAL {} {} and INDIVIDUAL {} {} are siblings and have an invalid spacing between their births".format(child, self.userdata[child]["NAME"], c, self.userdata[c]["NAME"]))
+                            print("ERROR: US13 INDIVIDUAL {} {} and INDIVIDUAL {} {} are siblings and have an invalid spacing between their births".format(child, self.userdata[child]["NAME"], c, self.userdata[c]["NAME"]))
                             self.errorlog["SiblingSpacing"] += 1
                         if abs(birthday - c_birthday).days < 2:
                             multiple_siblings_birth_counter += 1
                         if multiple_siblings_birth_counter > 5:
                             print(
-                                "ERROR: US15 Family {} has more than 5 siblings born less than 2 days apart".format(key))
+                                "ERROR: US14 Family {} has more than 5 siblings born less than 2 days apart".format(key))
                             self.errorlog["MultipleSiblings"] += 1
 
                 if self.userdata[child]["SEX"] == "M":
                     child_firstname, child_lastname = self.userdata[child]["NAME"].split()      
                     if child_lastname.strip("/") != husband_firstname:
-                        print("ERROR: US03 INDIVIDUAL {} {} and INDIVIDUAL {} {} have a Father-Child relationship but have different last names".format(
+                        print("ERROR: US16 INDIVIDUAL {} {} and INDIVIDUAL {} {} have a Father-Child relationship but have different last names".format(
                                 husband_id, husband_firstname, child, self.userdata[child]["NAME"]))
                         self.errorlog["MaleLastNames"] += 1
 
             if (divorce != "NA") and (div_husband != "NA") and (div_wife != "NA"):
                 if (datetime.datetime.strptime(marriage, '%d %b %Y') > datetime.datetime.strptime(self.userdata[husband_id]["DIVDATE"], '%d %b %Y')) or (datetime.datetime.strptime(self.userdata[wife_id]["MARRDATE"], '%d %b %Y') > datetime.datetime.strptime(self.userdata[wife_id]["DIVDATE"], '%d %b %Y')):
                     print(
-                        "ERROR: US12 INDIVIDUAL {} {} has Marriage Before Divorce".format(husband_id, husband_firstname))
+                        "ERROR: US04 INDIVIDUAL {} {} has Marriage Before Divorce".format(husband_id, husband_firstname))
                     self.errorlog["MarriageBeforeDivorce"] += 1
 
 
             if (divorce != "NA") and (div_husband != "NA") and (div_wife != "NA"):
                 if (datetime.datetime.strptime(div_husband, '%d %b %Y') > datetime.datetime.strptime(self.userdata[husband_id]["DEATDATE"], '%d %b %Y')) or (datetime.datetime.strptime(div_wife, '%d %b %Y') > datetime.datetime.strptime(self.userdata[wife_id]["DEATDATE"], '%d %b %Y')):
                     print(
-                        "ERROR: US02 INDIVIDUAL {} {} has divorce after death".format(husband_id, husband_firstname))
+                        "ERROR: US06 INDIVIDUAL {} {} has divorce after death".format(husband_id, husband_firstname))
                     self.errorlog["DivorceAfterDeath"] += 1
             
             if "FAMC" in self.userdata[husband_id] and "FAMC" in self.userdata[wife_id]:
                 if self.userdata[husband_id]["FAMC"] == self.userdata[wife_id]["FAMC"]:
                     print(
-                        "ERROR: US07 INDIVIDUAL {} {} and INDIVIDUAL {} {} are siblings but have married".format(
+                        "ERROR: US18 INDIVIDUAL {} {} and INDIVIDUAL {} {} are siblings but have married".format(
                             husband_id, husband_firstname, wife_id, wife_firstname))
                     self.errorlog["SiblingMarriageError"] += 1
             
@@ -481,6 +523,42 @@ class TestCases(unittest.TestCase):
         Test if marriage date is before birth date
         """
         self.assertNotEqual(self.errorlog["DateAfterCurrent"], 0)
+
+    def test_descendantmarryparent(self):
+        """
+        Test if Children don't marry their parents
+        """
+        self.assertNotEqual(self.errorlog["DescendantChildrenMarriage"], 0)
+
+    def test_birthbeforedeath(self):
+        """
+        Test if Birth is before death
+        """
+        self.assertNotEqual(self.errorlog["DeathBeforeBirth"], 0)
+
+    def test_birthbeforedeathparents(self):
+        """
+        Test if Birth is before death of parents
+        """
+        self.assertNotEqual(self.errorlog["DeathBeforeBirthParents"], 0)
+
+    def test_childbirthbeforeparentsmarriage(self):
+        """
+        Test if Child is born after parents marriage
+        """
+        self.assertNotEqual(self.errorlog["ChildBirthBeforeParentsMarriage"], 0)
+
+    def test_bigamy(self):
+        """
+        Test if Marriage occurs during another marriage
+        """
+        self.assertNotEqual(self.errorlog["Bigamy"], 0)
+
+    def test_parentstooold(self):
+        """
+        Test if Parents are too old
+        """
+        self.assertNotEqual(self.errorlog["ParentsTooOld"], 0)
 
 
 def main():
