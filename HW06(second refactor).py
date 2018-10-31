@@ -407,7 +407,7 @@ class Gedcom:
             
             if (self.userdata[husband_id]["SEX"] == "M" and self.userdata[wife_id]["SEX"] == "M"):
                 print(
-                    "ERROR: US01 INDIVIDUAL {} {} and INDIVIDUAL {} {} are of same gender but have married".format(
+                    "ERROR: US21 INDIVIDUAL {} {} and INDIVIDUAL {} {} are of same gender but have married".format(
                             husband_id, husband_firstname, wife_id, wife_firstname))
                 self.errorlog["ProperGender"] += 1
 
