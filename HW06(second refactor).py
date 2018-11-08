@@ -11,7 +11,6 @@ from collections import defaultdict
 from prettytable import PrettyTable
 import datetime
 from datetime import date
-
 # define possible values as global constant
 VALID_VALUES = {"0": ["INDI", "HEAD", "TRLR", "NOTE", "FAM"],
                 "1": ["NAME", "SEX", "BIRT", "DEAT", "FAMC", "FAMS", "MARR", "HUSB", "WIFE", "CHIL", "DIV"],
@@ -271,16 +270,28 @@ class Gedcom:
                 if fam_id == {}:
                     raise KeyError
                 child = self.familydata[fam_id]["CHIL"]
+                self.userdata[key]["CHILD"] = child
+                for c in child:
+                    if gender == "M":
+                        self.userdata[c]["father"] = key
+                    if gender == "F":
+                        self.userdata[c]["mather"] = key
+                
+                
             except KeyError:
                 child = "NA"
+                self.userdata[key]["CHILD"] = child
+                
             try:
                 fam_id = value["FAMS"]
                 if fam_id == {}:
                     raise KeyError
                 if gender == "M":
                     spouse = self.familydata[fam_id]["WIFE"]
+                    self.userdata[key]["SPOUSE"] = spouse
                 else:
                     spouse = self.familydata[fam_id]["HUSB"]
+                    self.userdata[key]["SPOUSE"] = spouse
             except KeyError:
                 spouse = "NA"
 
@@ -382,6 +393,8 @@ class Gedcom:
             wife_id = value["WIFE"]
             children = value["CHIL"]
 
+                    
+
             if abs(datetime.datetime.strptime(self.userdata[husband_id]["BIRTDATE"],
                                               '%d %b %Y') - datetime.datetime.strptime(
                     self.userdata[wife_id]["BIRTDATE"], '%d %b %Y')).days > 5475:
@@ -418,7 +431,16 @@ class Gedcom:
                 div_wife = "NA"
 
             for child in children:
-
+                grandchildren = self.userdata[child]["CHILD"]
+                
+                for gchild in grandchildren:
+                    if "SPOUSE" in self.userdata[gchild].keys():
+                        gspouse = self.userdata[gchild]["SPOUSE"]                        
+                        if("father" in self.userdata[gspouse].keys() and self.userdata[gspouse]["father"] in children) or ("mather" in self.userdata[gspouse].keys() and self.userdata[gspouse]["mather"] in children):
+                            print("ERROR: {} and {} are married consins".format(gchild,gspouse))
+                        if gspouse in children:
+                            print("ERROR: Aunts and uncles")
+                            
                 birthday = datetime.datetime.strptime(self.userdata[child]["BIRTDATE"], '%d %b %Y')
                 child_name = self.userdata[child]["NAME"]
                 child_firstname, child_lastname = child_name.split()
@@ -698,4 +720,4 @@ def main():
 
 if __name__ == '__main__':
     unittest.main(exit=False, verbosity=2)
-    main()
+    #main()
