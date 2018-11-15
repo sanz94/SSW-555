@@ -29,6 +29,8 @@ class Gedcom:
         self.tempdata = ""
         self.curr_id = ""
         self.samenameandbirthdate = []
+        self.uniqueFamiliesbyspouses = []
+        self.BirthdayList = []
         self.ptUsers = PrettyTable()
         self.ptFamily = PrettyTable()
         self.errorlog = defaultdict(int)
@@ -185,15 +187,7 @@ class Gedcom:
                 deathday = self.userdata[key]["DEATDATE"]
                 death_date = datetime.datetime.strptime(deathday, '%d %b %Y')
                 if (death_date) > datetime.datetime.now():
-                    print("ERROR: US21 INDIVIDUAL () {} has Death date Date after Current date".format(key,
-
-                                                                                                       self.userdata[
-                                                                                                           key][
-                                                                                                           "NAME"]))
-
-                                                                                                        self.userdata[
-                                                                                                            key][
-                                                                                                            "NAME"]))
+                    print("ERROR: US21 INDIVIDUAL () {} has Death date Date after Current date".format(key, self.userdata[key]["NAME"]))
 
                     self.errorlog["DateAfterCurrent"] += 1
                 if (death_date) > born_date:
@@ -246,7 +240,11 @@ class Gedcom:
             birthdate = value["BIRTDATE"]
             age = value["AGE"]
             alive = value["ALIVE"]
-
+            if alive is True:
+                if (datetime.datetime.strptime(birthdate, '%d %b %Y') - datetime.datetime.now()).days < 30:
+                    self.BirthdayList.append(name)
+                    print("ERROR: US38 INDIVIDUAL {} {} is alive and has birthday in less than 30 days".format(key, name))
+                    self.errorlog["BirthdayList"] += 1
 
 
             if name+birthdate in self.samenameandbirthdate:
@@ -406,7 +404,12 @@ class Gedcom:
             husband_id = value["HUSB"]
             wife_id = value["WIFE"]
             children = value["CHIL"]
-
+            spousename_plus_marriagedates = self.userdata[husband_id]["NAME"] + self.userdata[wife_id]["NAME"] + self.userdata[husband_id]["MARRDATE"]
+            if spousename_plus_marriagedates not in self.uniqueFamiliesbyspouses:
+                self.uniqueFamiliesbyspouses.append(spousename_plus_marriagedates)
+            else:
+                print("ERROR: US24 FAMILY {} is not unique".format(key))
+                self.errorlog["UniqueFamily"] += 1
 
             for i in children:
                 age_list.append(self.userdata[i]["AGE"])
@@ -414,6 +417,13 @@ class Gedcom:
                 if len(children)>=2:
                     multiple_births.append(i)
                     test_multiple.append(i)
+
+                try:
+                    if self.userdata[husband_id]["DEATDATE"] != 'NA' and self.userdata[wife_id]["DEATDATE"] != 'NA':
+                        print("Warning: US33 INDIVIDUAL {} () is an Orphan".format(i, self.userdata[i]["NAME"]))
+                        self.errorlog["OrphanList"] += 1
+                except KeyError:
+                    continue
 
             if abs(datetime.datetime.strptime(self.userdata[husband_id]["BIRTDATE"],
                                               '%d %b %Y') - datetime.datetime.strptime(
@@ -811,6 +821,23 @@ class TestCases(unittest.TestCase):
         """
         self.assertNotEqual(self.errorlog["OrderSiblings"], 0)
 
+    def test_OrphanList(self):
+        """
+        Test if children are orphans
+        """
+        self.assertNotEqual(self.errorlog["OrphanList"], 0)
+
+    def test_UniqueFamilies(self):
+        """
+        Test if all families are unique
+        """
+        self.assertNotEqual(self.errorlog["UniqueFamily"], 0)
+
+    def test_birthdayin30(self):
+        """
+        Test if user is alive and has birthday in less than 30 days
+        """
+        self.assertNotEqual(self.errorlog["BirthdayList"], 0)
 
 
 def main():
