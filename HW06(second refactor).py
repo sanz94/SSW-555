@@ -388,7 +388,6 @@ class Gedcom:
             uniquenameslist = []
 
             value = self.familydata[key]
-
             husband_id = value["HUSB"]
             wife_id = value["WIFE"]
             children = value["CHIL"]
@@ -438,8 +437,10 @@ class Gedcom:
                         gspouse = self.userdata[gchild]["SPOUSE"]                        
                         if("father" in self.userdata[gspouse].keys() and self.userdata[gspouse]["father"] in children) or ("mather" in self.userdata[gspouse].keys() and self.userdata[gspouse]["mather"] in children):
                             print("ERROR: {} and {} are married consins".format(gchild,gspouse))
+                            self.errorlog["MarriedConsins"] += 1
                         if gspouse in children:
-                            print("ERROR: Aunts and uncles")
+                            print("ERROR: Aunts and uncles married their nephews")
+                            self.errorlog["AuntsAndUncles"] += 1
                             
                 birthday = datetime.datetime.strptime(self.userdata[child]["BIRTDATE"], '%d %b %Y')
                 child_name = self.userdata[child]["NAME"]
@@ -708,6 +709,18 @@ class TestCases(unittest.TestCase):
         Test if user has a unique name and Birth date
         """
         self.assertNotEqual(self.errorlog["UniqueNameBirthDate"], 0)
+    
+    def test_marriedconsins(self):
+        """
+        Test if user has a unique name and Birth date
+        """
+        self.assertNotEqual(self.errorlog["MarriedConsins"], 0)
+        
+    def test_AuntsAndUncles(self):
+        """
+        Test if user has a unique name and Birth date
+        """
+        self.assertNotEqual(self.errorlog["AuntsAndUncles"], 0)
 
 
 def main():
