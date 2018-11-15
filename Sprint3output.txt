@@ -1,0 +1,635 @@
+Testing started at 02:35 ...
+D:\Python\python.exe "D:\PyCharm 2017.3.2\helpers\pycharm\_jb_unittest_runner.py" --path "D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py"
+Launching unittests with arguments python -m unittest D:/MS SE/SSW-555/Sanjeev Branch/SSW-555/HW06(second refactor).py in D:\MS SE\SSW-555\Sanjeev Branch\SSW-555
+ERROR: US22 INDIVIDUAL ID11 has a repetitive ID
+ERROR: US11 INDIVIDUAL ID32 HAS DONE BIGAMY
+ERROR: US01 INDIVIDUAL () ID01 has Birthdate Date before Current date
+ERROR: US10 INDIVIDUAL ID03 Rajasekaran /Srinivasan/ has married before the age of 14
+ERROR: US03 INDIVIDUAL () ID06 has Death date Date before Birth date
+ERROR: US03 INDIVIDUAL () ID07 has Death date Date before Birth date
+ERROR: US03 INDIVIDUAL () ID08 has Death date Date before Birth date
+ERROR: US10 INDIVIDUAL ID10 Ashwin /Kumar/ has married before the age of 14
+ERROR: US03 INDIVIDUAL () ID29 has Death date Date before Birth date
+ERROR: US03 INDIVIDUAL () ID30 has Death date Date before Birth date
+ERROR: US13 INDIVIDUAL ID03 Rajasekaran /Srinivasan/ has Marriage Before Birth
+ERROR: US05 INDIVIDUAL ID07 Priyanka /Govind/ have Marriage at 1921-06-08 00:00:00 which is after their death on 1920-10-01 00:00:00
+ERROR: US13 INDIVIDUAL ID10 Ashwin /Kumar/ has Marriage Before Birth
+ERROR: US05 INDIVIDUAL ID28 Ajay /Babu/ have Marriage at 1945-06-08 00:00:00 which is after their death on 1910-02-01 00:00:00
+ERROR: US05 INDIVIDUAL ID29 Divya /Govind/ have Marriage at 1945-06-08 00:00:00 which is after their death on 1910-02-01 00:00:00
+ERROR: US05 INDIVIDUAL ID30 Christopher /David/ have Marriage at 1945-06-08 00:00:00 which is after their death on 1910-02-01 00:00:00
+ERROR: US07 INDIVIDUAL ID32 Sarath /Babu/ has an age of 168 which is over 150
+ERROR: US23 INDIVIDUAL ID33 Keerthi /Vasan/ does not have a unique name and birth date
++------+--------------------------+--------+-------------+-----+-------+-------------+----------------------------------------------------------------------------------------------------------------------------------+--------+
+|  ID  |           NAME           | GENDER |  BIRTH DATE | AGE | ALIVE |    DEATH    |                                                              CHILD                                                               | SPOUSE |
++------+--------------------------+--------+-------------+-----+-------+-------------+----------------------------------------------------------------------------------------------------------------------------------+--------+
+| ID01 |  Sanjeev /Rajasekaran/   |   M    | 05 DEC 2018 |  0  |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID02 |  Shanthi /Rajasekaran/   |   F    | 06 OCT 1962 |  56 |  True |      NA     | ['ID01', 'ID04', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID19', 'ID20', 'ID21', 'ID22', 'ID23', 'ID24', 'ID25', 'ID27'] |  ID03  |
+| ID03 | Rajasekaran /Srinivasan/ |   M    | 16 JUN 1985 |  33 |  True |      NA     | ['ID01', 'ID04', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID19', 'ID20', 'ID21', 'ID22', 'ID23', 'ID24', 'ID25', 'ID27'] |  ID02  |
+| ID04 |  Sanjeev /Rajasekaran/   |   F    | 10 MAY 1994 |  24 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID05 | Pakeeleela /Srinivasan/  |   F    | 10 JUN 1910 | 108 |  True |      NA     |                                                             ['ID03']                                                             |  ID06  |
+| ID06 |    Srinivasan /Kumar/    |   M    | 02 MAY 1908 |  42 | False | 10 FEB 1950 |                                                             ['ID03']                                                             |  ID05  |
+| ID07 |    Priyanka /Govind/     |   F    | 08 DEC 1880 |  40 | False | 01 OCT 1920 |                                                             ['ID11']                                                             |  ID10  |
+| ID08 |     Praveen /Kumar/      |   M    | 12 JUL 1700 | 219 | False | 20 DEC 1919 |                                                         ['ID09', 'ID10']                                                         |  ID07  |
+| ID09 |      Nisha /Reddy/       |   F    | 02 AUG 1922 |  96 |  True |      NA     |                                                             ['ID11']                                                             |  ID10  |
+| ID10 |      Ashwin /Kumar/      |   M    | 03 AUG 1922 |  -1 | False | 20 DEC 1921 |                                                             ['ID11']                                                             |  ID09  |
+| ID11 |      Rajeev /Kumar/      |   M    | 09 AUG 1925 |  93 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID12 |     A /Rajasekaran/      |   F    | 10 MAY 1996 |  22 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID13 |     B /Rajasekaran/      |   F    | 10 MAY 1998 |  20 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID14 |     C /Rajasekaran/      |   F    | 10 MAY 2000 |  18 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID15 |     D /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID16 |     E /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID17 |     F /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID18 |     G /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID19 |     H /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID20 |     I /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID21 |     J /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID22 |     K /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID23 |     L /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID24 |     M /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID25 |     N /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID26 |     O /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID27 |     P /Rajasekaran/      |   F    | 10 MAY 2002 |  16 |  True |      NA     |                                                                NA                                                                |   NA   |
+| ID28 |       Ajay /Babu/        |   M    | 01 FEB 1911 |  -1 | False | 01 FEB 1910 |                                                                NA                                                                |   NA   |
+| ID29 |      Divya /Govind/      |   F    | 08 FEB 1811 |  99 | False | 01 FEB 1910 |                                                                []                                                                |  ID30  |
+| ID30 |   Christopher /David/    |   M    | 09 AUG 1811 |  99 | False | 01 FEB 1910 |                                                                []                                                                |  ID29  |
+| ID31 |     Keerthi /Vasan/      |   M    | 09 AUG 1925 |  93 |  True |      NA     |                                                                []                                                                |  ID32  |
+| ID32 |      Sarath /Babu/       |   M    | 09 AUG 1850 | 168 |  True |      NA     |                                                                []                                                                |  ID32  |
+| ID33 |     Keerthi /Vasan/      |   M    | 09 AUG 1925 |  93 |  True |      NA     |                                                                []                                                                |  ID32  |
++------+--------------------------+--------+-------------+-----+-------+-------------+----------------------------------------------------------------------------------------------------------------------------------+--------+
+DISPLAY US31 LIST OF SINGLES: ['Sanjeev /Rajasekaran/', 'Sanjeev /Rajasekaran/', 'A /Rajasekaran/', 'B /Rajasekaran/', 'C /Rajasekaran/', 'D /Rajasekaran/', 'E /Rajasekaran/', 'F /Rajasekaran/', 'G /Rajasekaran/', 'H /Rajasekaran/', 'I /Rajasekaran/', 'J /Rajasekaran/', 'K /Rajasekaran/', 'L /Rajasekaran/', 'M /Rajasekaran/', 'N /Rajasekaran/', 'O /Rajasekaran/', 'P /Rajasekaran/']
+DISPLAY US29 LIST OF deceased PEOPLE: ['Srinivasan /Kumar/', 'Priyanka /Govind/', 'Praveen /Kumar/', 'Ashwin /Kumar/', 'Ajay /Babu/', 'Divya /Govind/', 'Christopher /David/']
+ERROR: US29 INDIVIDUAL ID33 Keerthi /Vasan/ not in the list of deceased
+ERROR: US30 INDIVIDUAL ID33 Keerthi /Vasan/ not in the list of single
+DISPLAY US30 LIST OF MARRIED PEOPLE: ['Shanthi /Rajasekaran/', 'Rajasekaran /Srinivasan/', 'Pakeeleela /Srinivasan/', 'Srinivasan /Kumar/', 'Priyanka /Govind/', 'Praveen /Kumar/', 'Nisha /Reddy/', 'Ashwin /Kumar/', 'Rajeev /Kumar/', 'Ajay /Babu/', 'Divya /Govind/', 'Christopher /David/', 'Keerthi /Vasan/', 'Sarath /Babu/', 'Keerthi /Vasan/']
+ERROR: US31 INDIVIDUAL ID33 Keerthi /Vasan/ not in the list of married people
+ERROR: US17 FAMILY F10 has marriage between descendants and their children
+ERROR: US21 INDIVIDUAL ID31 Keerthi and INDIVIDUAL ID32 Sarath are of same gender but have married
+ERROR: US16 INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID11 Rajeev /Kumar/ have a Father-Child relationship but have different last names
+ERROR: US18 INDIVIDUAL ID10 Ashwin and INDIVIDUAL ID09 Nisha are siblings but have married
+ERROR: US17 FAMILY F13 has marriage between descendants and their children
+ERROR: US12 FAMILY F13 Parents are too old
+ERROR: US08 Family F13 has Child ID10 who was born before parents marriage
+ERROR: US09 Family F13 has Child ID10 who was born after parents Death
+ERROR: US13 INDIVIDUAL ID09 Nisha /Reddy/ and INDIVIDUAL ID10 Ashwin /Kumar/ are siblings and have an invalid spacing between their births
+ERROR: US12 FAMILY F13 Parents are too old
+ERROR: US08 Family F13 has Child ID09 who was born before parents marriage
+ERROR: US09 Family F13 has Child ID09 who was born after parents Death
+ERROR: US13 INDIVIDUAL ID10 Ashwin /Kumar/ and INDIVIDUAL ID09 Nisha /Reddy/ are siblings and have an invalid spacing between their births
+ERROR: US16 INDIVIDUAL ID08 Praveen and INDIVIDUAL ID10 Ashwin /Kumar/ have a Father-Child relationship but have different last names
+ERROR: US04 INDIVIDUAL ID08 Praveen has Marriage After Divorce
+ERROR: US06 INDIVIDUAL ID08 Praveen has divorce after death
+ERROR: FAMILY F14 Parents are too old
+ERROR: US17 FAMILY F15 has marriage between descendants and their children
+ERROR: US15 FAMILY F15 more than 15 siblings
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID01 Sanjeev /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US25 INDIVIDUAL ID04 Sanjeev does not have a unique first name
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID04 Sanjeev /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID12 A /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID13 B /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID14 C /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID15 D /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID16 E /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID17 F /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID19 H /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID20 I /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID21 J /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID22 K /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID23 L /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID24 M /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID27 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID25 N /Rajasekaran/ and INDIVIDUAL ID27 P /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID01 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID01 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID04 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID04 Sanjeev /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID12 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID12 A /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID13 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID13 B /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID14 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID14 C /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID15 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID15 D /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID16 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID16 E /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID17 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID17 F /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID19 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID19 H /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID20 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID20 I /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US08 Family F15 has Child ID21 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID21 J /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID22 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID22 K /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID23 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID23 L /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID24 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID24 M /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
+ERROR: US08 Family F15 has Child ID25 who was born before parents marriage
+ERROR: US13 INDIVIDUAL ID27 P /Rajasekaran/ and INDIVIDUAL ID25 N /Rajasekaran/ are siblings and have an invalid spacing between their births
+ERROR: US14 Family F15 has more than 5 siblings born less than 2 days apart
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+|  ID | MARRIAGE DATE | DIVORCE DATE | HUSBAND ID |       HUSBAND NAME       | WIFE ID |        WIFE NAME        |                                                             CHILDREN                                                             |
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| F10 |  08 JUN 1945  |      NA      |    ID31    |     Keerthi /Vasan/      |   ID32  |      Sarath /Babu/      |                                                                []                                                                |
+| F12 |  08 JUN 1912  |      NA      |    ID10    |      Ashwin /Kumar/      |   ID09  |      Nisha /Reddy/      |                                                             ['ID11']                                                             |
+| F13 |  18 NOV 1905  | 07 APR 1882  |    ID08    |     Praveen /Kumar/      |   ID07  |    Priyanka /Govind/    |                                                         ['ID09', 'ID10']                                                         |
+| F14 |  30 MAR 1940  |      NA      |    ID06    |    Srinivasan /Kumar/    |   ID05  | Pakeeleela /Srinivasan/ |                                                             ['ID03']                                                             |
+| F15 |  30 APR 1984  |      NA      |    ID03    | Rajasekaran /Srinivasan/ |   ID02  |  Shanthi /Rajasekaran/  | ['ID01', 'ID04', 'ID12', 'ID13', 'ID14', 'ID15', 'ID16', 'ID17', 'ID19', 'ID20', 'ID21', 'ID22', 'ID23', 'ID24', 'ID25', 'ID27'] |
+| F16 |  08 JUN 1945  |      NA      |    ID30    |   Christopher /David/    |   ID29  |      Divya /Govind/     |                                                                []                                                                |
++-----+---------------+--------------+------------+--------------------------+---------+-------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+
+Ran 24 tests in 0.057s
+
+OK
+
+Process finished with exit code 0
