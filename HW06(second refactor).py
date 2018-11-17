@@ -469,11 +469,11 @@ class Gedcom:
                     if "SPOUSE" in self.userdata[gchild].keys():
                         gspouse = self.userdata[gchild]["SPOUSE"]                        
                         if("father" in self.userdata[gspouse].keys() and self.userdata[gspouse]["father"] in children) or ("mather" in self.userdata[gspouse].keys() and self.userdata[gspouse]["mather"] in children):
-                            print("ERROR: {} and {} are married consins".format(gchild,gspouse))
+                            print("ERROR US19: {} and {} are married consins".format(gchild,gspouse))
 
                             self.errorlog["MarriedConsins"] += 1
                         if gspouse in children:
-                            print("ERROR: Aunts and uncles married their nephews")
+                            print("ERROR US20: Aunts and uncles married their nephews")
                             self.errorlog["AuntsAndUncles"] += 1
 
                 birthday = datetime.datetime.strptime(self.userdata[child]["BIRTDATE"], '%d %b %Y')
